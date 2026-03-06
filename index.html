@@ -7,7 +7,6 @@
   <title>Más Simple — Comida Saludable Congelada</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="dns-prefetch" href="https://fonts.googleapis.com">
   <link
     href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,400;0,600;0,700;0,800;1,400&family=Playfair+Display:ital,wght@0,400;1,400;1,700&display=swap"
     rel="stylesheet">
@@ -15,14 +14,11 @@
     :root {
       --coral: #F15B5B;
       --coral-dark: #D94444;
-      --coral-light: #FADADADA;
       --green: #1B3D2F;
       --green-mid: #2D5E45;
       --green-light: #E8F0EA;
       --beige: #F0E6D8;
-      --beige-dark: #E4D5C0;
       --beige-light: #FAF5EE;
-      --white: #FFFFFF;
       --text: #1A1A1A;
       --text-mid: #4A4A4A;
       --text-muted: #8A7E72;
@@ -37,21 +33,20 @@
     * {
       box-sizing: border-box;
       margin: 0;
-      padding: 0;
+      padding: 0
     }
 
     html {
-      scroll-behavior: smooth;
+      scroll-behavior: smooth
     }
 
     body {
       font-family: 'Nunito', sans-serif;
       background: var(--beige);
       color: var(--text);
-      overflow-x: hidden;
+      overflow-x: hidden
     }
 
-    /* ── LOADER ── */
     .loader {
       position: fixed;
       inset: 0;
@@ -60,23 +55,23 @@
       align-items: center;
       justify-content: center;
       z-index: 9999;
-      transition: opacity 0.6s, transform 0.6s;
+      transition: opacity 0.6s
     }
 
     .loader img {
       width: 120px;
-      animation: pulse 1.2s ease-in-out infinite;
+      animation: pulse 1.2s ease-in-out infinite
     }
 
     .loader-fallback {
-      font-family: 'Nunito', sans-serif;
       font-size: 42px;
       font-weight: 800;
       color: var(--green);
+      display: none
     }
 
     .loader-fallback span {
-      color: var(--coral);
+      color: var(--coral)
     }
 
     @keyframes pulse {
@@ -91,7 +86,6 @@
       }
     }
 
-    /* ── NAV ── */
     .nav {
       position: fixed;
       top: 0;
@@ -99,34 +93,36 @@
       z-index: 200;
       background: rgba(240, 230, 216, 0.92);
       backdrop-filter: blur(16px);
-      border-bottom: 1px solid var(--border);
+      border-bottom: 1px solid var(--border)
+    }
+
+    .nav-inner {
       display: flex;
       align-items: center;
       justify-content: space-between;
       padding: 0 48px;
-      height: 70px;
+      height: 70px
     }
 
     .nav-logo img {
       height: 44px;
-      object-fit: contain;
+      object-fit: contain
     }
 
     .nav-logo-fallback {
-      font-family: 'Nunito', sans-serif;
       font-size: 22px;
       font-weight: 800;
-      color: var(--green);
+      color: var(--green)
     }
 
     .nav-logo-fallback span {
-      color: var(--coral);
+      color: var(--coral)
     }
 
     .nav-links {
       display: flex;
       align-items: center;
-      gap: 32px;
+      gap: 32px
     }
 
     .nav-links a {
@@ -135,39 +131,38 @@
       font-size: 14px;
       font-weight: 600;
       letter-spacing: 0.04em;
-      transition: color 0.2s;
+      transition: color 0.2s
     }
 
     .nav-links a:hover {
-      color: var(--coral);
+      color: var(--coral)
     }
 
     .nav-actions {
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 12px
     }
 
     .btn-cart {
-      position: relative;
       background: var(--green);
       color: white;
       border: none;
       padding: 10px 20px;
       border-radius: 100px;
-      font-family: 'Nunito', sans-serif;
+      font-family: 'Nunito';
       font-size: 14px;
       font-weight: 700;
       cursor: pointer;
       display: flex;
       align-items: center;
       gap: 8px;
-      transition: background 0.2s, transform 0.2s;
+      transition: background 0.2s, transform 0.2s
     }
 
     .btn-cart:hover {
       background: var(--coral);
-      transform: scale(1.04);
+      transform: scale(1.04)
     }
 
     .cart-count {
@@ -181,46 +176,27 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      transition: transform 0.3s;
+      transition: transform 0.3s
     }
 
     .cart-count.bump {
-      transform: scale(1.4);
+      transform: scale(1.4)
     }
 
-    .btn-admin-nav {
-      background: transparent;
-      border: 1.5px solid var(--border);
-      padding: 8px 16px;
-      border-radius: 100px;
-      font-family: 'Nunito', sans-serif;
-      font-size: 12px;
-      font-weight: 600;
-      color: var(--text-muted);
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-
-    .btn-admin-nav:hover {
-      border-color: var(--green);
-      color: var(--green);
-    }
-
-    /* ── HERO ── */
     .hero {
       min-height: 100vh;
       display: flex;
       align-items: center;
       padding: 100px 48px 60px;
       position: relative;
-      overflow: hidden;
+      overflow: hidden
     }
 
     .hero-bg-deco {
       position: absolute;
       inset: 0;
       pointer-events: none;
-      overflow: hidden;
+      overflow: hidden
     }
 
     .float-el {
@@ -228,33 +204,33 @@
       opacity: 0;
       transform: translateY(24px) scale(0.8);
       filter: drop-shadow(0 4px 12px rgba(27, 61, 47, 0.15));
-      will-change: transform, opacity;
+      will-change: transform, opacity
     }
 
     .float-el.floating {
-      animation: floatAnim var(--dur, 7s) ease-in-out infinite;
+      animation: floatAnim var(--dur, 7s) ease-in-out infinite
     }
 
     @keyframes floatAnim {
 
       0%,
       100% {
-        transform: translateY(0px) rotate(0deg);
+        transform: translateY(0) rotate(0deg)
       }
 
       33% {
-        transform: translateY(calc(var(--dist, 14px) * -1)) rotate(3deg);
+        transform: translateY(calc(var(--dist, 14px)*-1)) rotate(3deg)
       }
 
       66% {
-        transform: translateY(calc(var(--dist, 14px) * 0.6)) rotate(-2deg);
+        transform: translateY(calc(var(--dist, 14px)*0.6)) rotate(-2deg)
       }
     }
 
     .hero-content {
       position: relative;
       z-index: 1;
-      max-width: 620px;
+      max-width: 620px
     }
 
     .hero-tag {
@@ -269,7 +245,7 @@
       padding: 8px 18px;
       border-radius: 100px;
       margin-bottom: 28px;
-      animation: fadeUp 0.5s ease both;
+      animation: fadeUp 0.5s ease both
     }
 
     .hero h1 {
@@ -280,30 +256,29 @@
       line-height: 1.1;
       color: var(--green);
       margin-bottom: 20px;
-      animation: fadeUp 0.5s ease 0.1s both;
+      animation: fadeUp 0.5s ease 0.1s both
     }
 
     .hero h1 strong {
       font-style: normal;
       color: var(--coral);
-      font-weight: 800;
+      font-weight: 800
     }
 
     .hero p {
       font-size: 17px;
       line-height: 1.7;
       color: var(--text-mid);
-      font-weight: 400;
       max-width: 480px;
       margin-bottom: 36px;
-      animation: fadeUp 0.5s ease 0.2s both;
+      animation: fadeUp 0.5s ease 0.2s both
     }
 
     .hero-btns {
       display: flex;
       gap: 14px;
       flex-wrap: wrap;
-      animation: fadeUp 0.5s ease 0.3s both;
+      animation: fadeUp 0.5s ease 0.3s both
     }
 
     .btn-primary {
@@ -312,20 +287,19 @@
       border: none;
       padding: 16px 36px;
       border-radius: 100px;
-      font-family: 'Nunito', sans-serif;
+      font-family: 'Nunito';
       font-size: 15px;
       font-weight: 700;
       cursor: pointer;
       text-decoration: none;
       display: inline-block;
       transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
-      box-shadow: 0 4px 20px rgba(241, 91, 91, 0.35);
+      box-shadow: 0 4px 20px rgba(241, 91, 91, 0.35)
     }
 
     .btn-primary:hover {
       background: var(--coral-dark);
-      transform: translateY(-2px);
-      box-shadow: 0 8px 28px rgba(241, 91, 91, 0.4);
+      transform: translateY(-2px)
     }
 
     .btn-secondary {
@@ -334,37 +308,18 @@
       border: 2px solid var(--green);
       padding: 14px 32px;
       border-radius: 100px;
-      font-family: 'Nunito', sans-serif;
+      font-family: 'Nunito';
       font-size: 15px;
       font-weight: 700;
       cursor: pointer;
       text-decoration: none;
       display: inline-block;
-      transition: all 0.2s;
+      transition: all 0.2s
     }
 
     .btn-secondary:hover {
       background: var(--green);
-      color: white;
-    }
-
-    .hero-image {
-      position: absolute;
-      right: 0;
-      top: 0;
-      bottom: 0;
-      width: 45%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      animation: fadeUp 0.6s ease 0.4s both;
-    }
-
-    .hero-image img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      opacity: 0.15;
+      color: white
     }
 
     .hero-badges {
@@ -372,7 +327,7 @@
       gap: 12px;
       flex-wrap: wrap;
       margin-top: 32px;
-      animation: fadeUp 0.5s ease 0.4s both;
+      animation: fadeUp 0.5s ease 0.4s both
     }
 
     .badge-pill {
@@ -385,17 +340,16 @@
       color: var(--text-mid);
       display: flex;
       align-items: center;
-      gap: 6px;
+      gap: 6px
     }
 
-    /* ── SECCIÓN PRODUCTOS ── */
     .section {
-      padding: 80px 48px;
+      padding: 80px 48px
     }
 
     .section-header {
       text-align: center;
-      margin-bottom: 56px;
+      margin-bottom: 56px
     }
 
     .section-eyebrow {
@@ -405,7 +359,7 @@
       letter-spacing: 0.2em;
       text-transform: uppercase;
       color: var(--coral);
-      margin-bottom: 12px;
+      margin-bottom: 12px
     }
 
     .section-title {
@@ -414,20 +368,19 @@
       font-weight: 400;
       font-style: italic;
       color: var(--green);
-      line-height: 1.15;
+      line-height: 1.15
     }
 
     .section-title strong {
       font-style: normal;
       color: var(--coral);
-      font-weight: 800;
+      font-weight: 800
     }
 
     .section-sub {
       font-size: 16px;
       color: var(--text-muted);
-      margin-top: 12px;
-      font-weight: 400;
+      margin-top: 12px
     }
 
     .products-grid {
@@ -435,7 +388,7 @@
       grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
       gap: 24px;
       max-width: 1200px;
-      margin: 0 auto;
+      margin: 0 auto
     }
 
     .product-card {
@@ -444,13 +397,12 @@
       overflow: hidden;
       box-shadow: var(--shadow-sm);
       transition: transform 0.3s, box-shadow 0.3s;
-      animation: fadeUp 0.5s ease both;
-      position: relative;
+      animation: fadeUp 0.5s ease both
     }
 
     .product-card:hover {
       transform: translateY(-6px);
-      box-shadow: var(--shadow);
+      box-shadow: var(--shadow)
     }
 
     .product-card-img {
@@ -460,36 +412,36 @@
       align-items: center;
       justify-content: center;
       position: relative;
-      overflow: hidden;
+      overflow: hidden
     }
 
     .product-card-img img.prod-photo {
       width: 100%;
       height: 100%;
-      object-fit: cover;
+      object-fit: cover
     }
 
-    .product-card-img .prod-emoji {
+    .prod-emoji {
       font-size: 72px;
-      filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.1));
+      filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.1))
     }
 
     .product-deco {
       position: absolute;
       width: 60px;
-      opacity: 0.3;
+      opacity: 0.3
     }
 
     .product-deco.tr {
       top: 10px;
       right: 10px;
-      transform: rotate(15deg);
+      transform: rotate(15deg)
     }
 
     .product-deco.bl {
       bottom: 8px;
       left: 8px;
-      transform: rotate(-10deg);
+      transform: rotate(-10deg)
     }
 
     .veg-badge {
@@ -502,30 +454,22 @@
       font-weight: 700;
       padding: 4px 10px;
       border-radius: 100px;
-      letter-spacing: 0.06em;
+      letter-spacing: 0.06em
     }
 
     .product-body {
-      padding: 24px;
+      padding: 24px
     }
 
     .product-name {
       font-size: 20px;
       font-weight: 800;
       color: var(--green);
-      margin-bottom: 4px;
-    }
-
-    .product-variants {
-      font-size: 13px;
-      color: var(--text-muted);
-      font-weight: 400;
-      margin-bottom: 20px;
-      font-style: italic;
+      margin-bottom: 4px
     }
 
     .flavor-step {
-      margin-bottom: 16px;
+      margin-bottom: 16px
     }
 
     .step-label {
@@ -534,13 +478,13 @@
       letter-spacing: 0.12em;
       text-transform: uppercase;
       color: var(--text-muted);
-      margin-bottom: 8px;
+      margin-bottom: 8px
     }
 
     .flavor-pills {
       display: flex;
       flex-wrap: wrap;
-      gap: 8px;
+      gap: 8px
     }
 
     .flavor-pill {
@@ -552,18 +496,18 @@
       color: var(--text-mid);
       cursor: pointer;
       background: white;
-      transition: all 0.2s;
+      transition: all 0.2s
     }
 
     .flavor-pill:hover {
       border-color: var(--coral);
-      color: var(--coral);
+      color: var(--coral)
     }
 
     .flavor-pill.selected {
       background: var(--coral);
       color: white;
-      border-color: var(--coral);
+      border-color: var(--coral)
     }
 
     .product-options {
@@ -573,12 +517,12 @@
       max-height: 0;
       overflow: hidden;
       transition: max-height 0.35s ease, opacity 0.3s;
-      opacity: 0;
+      opacity: 0
     }
 
     .product-options.visible {
       max-height: 400px;
-      opacity: 1;
+      opacity: 1
     }
 
     .option-row {
@@ -590,24 +534,24 @@
       border-radius: var(--radius-sm);
       border: 2px solid transparent;
       transition: all 0.2s;
-      cursor: pointer;
+      cursor: pointer
     }
 
     .option-row:hover {
       border-color: var(--coral);
-      background: white;
+      background: white
     }
 
     .option-label {
       font-size: 14px;
       font-weight: 600;
-      color: var(--text-mid);
+      color: var(--text-mid)
     }
 
     .option-price {
       font-size: 16px;
       font-weight: 800;
-      color: var(--coral);
+      color: var(--coral)
     }
 
     .btn-add {
@@ -618,18 +562,17 @@
       height: 32px;
       border-radius: 50%;
       font-size: 20px;
-      font-weight: 700;
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
       transition: background 0.2s, transform 0.2s;
-      flex-shrink: 0;
+      flex-shrink: 0
     }
 
     .btn-add:hover {
       background: var(--coral-dark);
-      transform: scale(1.1);
+      transform: scale(1.1)
     }
 
     .option-subtype {
@@ -641,22 +584,21 @@
       background: var(--green-light);
       padding: 2px 8px;
       border-radius: 100px;
-      margin-left: 6px;
+      margin-left: 6px
     }
 
-    /* ── QUIÉNES SOMOS ── */
     .about-section {
       background: var(--green);
       padding: 80px 48px;
       position: relative;
-      overflow: hidden;
+      overflow: hidden
     }
 
     .about-section::before {
       content: '';
       position: absolute;
       inset: 0;
-      background: radial-gradient(ellipse at 80% 50%, rgba(241, 91, 91, 0.12) 0%, transparent 60%);
+      background: radial-gradient(ellipse at 80% 50%, rgba(241, 91, 91, 0.12) 0%, transparent 60%)
     }
 
     .about-inner {
@@ -667,11 +609,11 @@
       gap: 64px;
       align-items: center;
       position: relative;
-      z-index: 1;
+      z-index: 1
     }
 
     .about-text .section-eyebrow {
-      color: var(--coral);
+      color: var(--coral)
     }
 
     .about-title {
@@ -681,12 +623,12 @@
       font-style: italic;
       color: white;
       line-height: 1.2;
-      margin-bottom: 20px;
+      margin-bottom: 20px
     }
 
     .about-title strong {
       font-style: normal;
-      color: var(--coral);
+      color: var(--coral)
     }
 
     .about-desc {
@@ -694,13 +636,13 @@
       line-height: 1.8;
       color: rgba(255, 255, 255, 0.75);
       font-weight: 300;
-      margin-bottom: 28px;
+      margin-bottom: 28px
     }
 
     .about-cards {
       display: flex;
       flex-direction: column;
-      gap: 16px;
+      gap: 16px
     }
 
     .about-card {
@@ -710,75 +652,74 @@
       padding: 20px 24px;
       display: flex;
       align-items: flex-start;
-      gap: 14px;
+      gap: 14px
     }
 
     .about-card-icon {
       font-size: 28px;
-      flex-shrink: 0;
+      flex-shrink: 0
     }
 
     .about-card h4 {
       font-size: 15px;
       font-weight: 700;
       color: white;
-      margin-bottom: 4px;
+      margin-bottom: 4px
     }
 
     .about-card p {
       font-size: 13px;
       color: rgba(255, 255, 255, 0.6);
       font-weight: 300;
-      line-height: 1.5;
+      line-height: 1.5
     }
 
-    /* ── CTA WHATSAPP ── */
     .cta-section {
       background: var(--beige-light);
       padding: 80px 48px;
       text-align: center;
       position: relative;
-      overflow: hidden;
+      overflow: hidden
     }
 
     .cta-deco {
       position: absolute;
-      pointer-events: none;
+      pointer-events: none
     }
 
     .cta-deco img {
       opacity: 0.2;
-      width: 80px;
+      width: 80px
     }
 
     .cta-deco.tl {
       top: 20px;
-      left: 40px;
+      left: 40px
     }
 
     .cta-deco.tr {
       top: 20px;
       right: 40px;
-      transform: scaleX(-1);
+      transform: scaleX(-1)
     }
 
     .cta-deco.bl {
       bottom: 20px;
       left: 60px;
-      transform: rotate(180deg);
+      transform: rotate(180deg)
     }
 
     .cta-deco.br {
       bottom: 20px;
       right: 60px;
-      transform: rotate(180deg) scaleX(-1);
+      transform: rotate(180deg) scaleX(-1)
     }
 
     .cta-inner {
       position: relative;
       z-index: 1;
       max-width: 560px;
-      margin: 0 auto;
+      margin: 0 auto
     }
 
     .cta-title {
@@ -786,19 +727,18 @@
       font-size: clamp(28px, 3.5vw, 48px);
       font-style: italic;
       color: var(--green);
-      margin-bottom: 16px;
+      margin-bottom: 16px
     }
 
     .cta-title strong {
       font-style: normal;
-      color: var(--coral);
+      color: var(--coral)
     }
 
     .cta-sub {
       font-size: 16px;
       color: var(--text-muted);
-      margin-bottom: 36px;
-      font-weight: 400;
+      margin-bottom: 36px
     }
 
     .btn-whatsapp {
@@ -809,28 +749,26 @@
       color: white;
       padding: 16px 36px;
       border-radius: 100px;
-      font-family: 'Nunito', sans-serif;
+      font-family: 'Nunito';
       font-size: 16px;
       font-weight: 700;
       text-decoration: none;
       transition: all 0.2s;
-      box-shadow: 0 4px 20px rgba(37, 211, 102, 0.35);
+      box-shadow: 0 4px 20px rgba(37, 211, 102, 0.35)
     }
 
     .btn-whatsapp:hover {
       background: #1eb85a;
-      transform: translateY(-2px);
-      box-shadow: 0 8px 28px rgba(37, 211, 102, 0.4);
+      transform: translateY(-2px)
     }
 
     .btn-whatsapp svg {
       width: 22px;
       height: 22px;
       fill: white;
-      flex-shrink: 0;
+      flex-shrink: 0
     }
 
-    /* ── FOOTER ── */
     footer {
       background: var(--green);
       padding: 40px 48px;
@@ -838,32 +776,29 @@
       align-items: center;
       justify-content: space-between;
       flex-wrap: wrap;
-      gap: 20px;
+      gap: 20px
     }
 
     .footer-logo img {
       height: 36px;
-      object-fit: contain;
+      object-fit: contain
     }
 
     .footer-logo-fallback {
       font-size: 18px;
       font-weight: 800;
-      color: white;
+      color: white
     }
 
     .footer-logo-fallback span {
-      color: var(--coral);
+      color: var(--coral)
     }
 
     footer p {
       color: rgba(255, 255, 255, 0.45);
-      font-size: 13px;
+      font-size: 13px
     }
 
-    /* ══════════════════
-       CARRITO
-    ══════════════════ */
     .cart-overlay {
       position: fixed;
       inset: 0;
@@ -872,11 +807,11 @@
       z-index: 400;
       display: none;
       align-items: flex-start;
-      justify-content: flex-end;
+      justify-content: flex-end
     }
 
     .cart-overlay.open {
-      display: flex;
+      display: flex
     }
 
     .cart-panel {
@@ -887,16 +822,16 @@
       display: flex;
       flex-direction: column;
       animation: slideIn 0.3s ease;
-      overflow: hidden;
+      overflow: hidden
     }
 
     @keyframes slideIn {
       from {
-        transform: translateX(100%);
+        transform: translateX(100%)
       }
 
       to {
-        transform: translateX(0);
+        transform: translateX(0)
       }
     }
 
@@ -906,16 +841,13 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      background: var(--beige-light);
+      background: var(--beige-light)
     }
 
     .cart-header h2 {
       font-size: 20px;
       font-weight: 800;
-      color: var(--green);
-      display: flex;
-      align-items: center;
-      gap: 8px;
+      color: var(--green)
     }
 
     .btn-close {
@@ -930,32 +862,32 @@
       align-items: center;
       justify-content: center;
       border-radius: 50%;
-      transition: background 0.2s;
+      transition: background 0.2s
     }
 
     .btn-close:hover {
-      background: var(--beige);
+      background: var(--beige)
     }
 
     .cart-items {
       flex: 1;
       overflow-y: auto;
-      padding: 20px 28px;
+      padding: 20px 28px
     }
 
     .cart-empty {
       text-align: center;
-      padding: 60px 20px;
+      padding: 60px 20px
     }
 
     .cart-empty .empty-icon {
       font-size: 56px;
-      margin-bottom: 12px;
+      margin-bottom: 12px
     }
 
     .cart-empty p {
       color: var(--text-muted);
-      font-size: 15px;
+      font-size: 15px
     }
 
     .cart-item {
@@ -963,36 +895,35 @@
       align-items: center;
       gap: 14px;
       padding: 14px 0;
-      border-bottom: 1px solid rgba(0, 0, 0, 0.06);
-      animation: fadeUp 0.3s ease;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.06)
     }
 
     .cart-item-icon {
       font-size: 30px;
-      flex-shrink: 0;
+      flex-shrink: 0
     }
 
     .cart-item-info {
-      flex: 1;
+      flex: 1
     }
 
     .cart-item-name {
       font-size: 14px;
       font-weight: 700;
-      color: var(--green);
+      color: var(--green)
     }
 
     .cart-item-detail {
       font-size: 12px;
       color: var(--text-muted);
-      margin-top: 2px;
+      margin-top: 2px
     }
 
     .cart-item-price {
       font-size: 15px;
       font-weight: 800;
       color: var(--coral);
-      flex-shrink: 0;
+      flex-shrink: 0
     }
 
     .btn-remove {
@@ -1003,48 +934,47 @@
       cursor: pointer;
       padding: 4px;
       border-radius: 4px;
-      transition: color 0.2s;
+      transition: color 0.2s
     }
 
     .btn-remove:hover {
-      color: var(--coral);
+      color: var(--coral)
     }
 
     .cart-footer {
       padding: 20px 28px 28px;
       border-top: 1px solid var(--border);
-      background: var(--beige-light);
+      background: var(--beige-light)
     }
 
     .cart-total {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 8px;
+      margin-bottom: 8px
     }
 
     .cart-total span {
       font-size: 15px;
       color: var(--text-muted);
-      font-weight: 600;
+      font-weight: 600
     }
 
     .cart-total strong {
       font-size: 26px;
       font-weight: 800;
-      color: var(--green);
+      color: var(--green)
     }
 
     .cart-note {
       font-size: 12px;
       color: var(--text-muted);
       margin-bottom: 16px;
-      line-height: 1.5;
+      line-height: 1.5
     }
 
-    /* CAMPO NOMBRE CARRITO */
     .cart-name-field {
-      margin-bottom: 15px;
+      margin-bottom: 15px
     }
 
     .cart-name-field label {
@@ -1054,7 +984,7 @@
       color: var(--green);
       margin-bottom: 5px;
       text-transform: uppercase;
-      letter-spacing: 0.5px;
+      letter-spacing: 0.5px
     }
 
     .cart-name-field input {
@@ -1065,11 +995,11 @@
       font-family: 'Nunito';
       outline: none;
       transition: 0.2s;
+      font-size: 14px
     }
 
     .cart-name-field input:focus {
-      border-color: var(--green);
-      background: white;
+      border-color: var(--green)
     }
 
     .btn-checkout {
@@ -1083,23 +1013,23 @@
       border: none;
       padding: 16px;
       border-radius: 100px;
-      font-family: 'Nunito', sans-serif;
+      font-family: 'Nunito';
       font-size: 16px;
       font-weight: 700;
       cursor: pointer;
       transition: all 0.2s;
       box-shadow: 0 4px 20px rgba(37, 211, 102, 0.3);
       text-decoration: none;
-      margin-bottom: 8px;
+      margin-bottom: 8px
     }
 
     .btn-checkout:hover {
       background: #1eb85a;
-      transform: translateY(-1px);
+      transform: translateY(-1px)
     }
 
     .btn-checkout.mayra {
-      background: #128C7E;
+      background: #128C7E
     }
 
     .btn-checkout.disabled {
@@ -1108,16 +1038,16 @@
       transform: none !important;
       box-shadow: none !important;
       pointer-events: none;
-      opacity: 0.6;
+      opacity: 0.6
     }
 
     .btn-checkout svg {
       width: 20px;
       height: 20px;
-      fill: white;
+      fill: white
     }
 
-    .btn-clear {
+    .btn-clear-cart {
       width: 100%;
       margin-top: 10px;
       background: none;
@@ -1127,449 +1057,11 @@
       cursor: pointer;
       padding: 8px;
       transition: color 0.2s;
-      font-family: 'Nunito', sans-serif;
+      font-family: 'Nunito'
     }
 
-    .btn-clear:hover {
-      color: var(--coral);
-    }
-
-    /* ══════════════════
-       LOGIN ADMIN
-    ══════════════════ */
-    .login-overlay {
-      position: fixed;
-      inset: 0;
-      background: rgba(27, 61, 47, 0.7);
-      backdrop-filter: blur(8px);
-      z-index: 600;
-      display: none;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .login-overlay.open {
-      display: flex;
-    }
-
-    .login-box {
-      background: white;
-      border-radius: var(--radius);
-      padding: 48px 40px;
-      width: 100%;
-      max-width: 400px;
-      text-align: center;
-      box-shadow: var(--shadow-lg);
-      animation: fadeUp 0.3s ease;
-    }
-
-    .login-box img {
-      height: 50px;
-      margin-bottom: 20px;
-    }
-
-    .login-box h2 {
-      font-size: 22px;
-      font-weight: 800;
-      color: var(--green);
-      margin-bottom: 6px;
-    }
-
-    .login-box p {
-      font-size: 14px;
-      color: var(--text-muted);
-      margin-bottom: 28px;
-    }
-
-    .form-group {
-      margin-bottom: 16px;
-      text-align: left;
-    }
-
-    .form-group label {
-      display: block;
-      font-size: 12px;
-      font-weight: 700;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--text-muted);
-      margin-bottom: 6px;
-    }
-
-    .form-group input {
-      width: 100%;
-      padding: 12px 16px;
-      border: 2px solid var(--border);
-      border-radius: var(--radius-sm);
-      font-family: 'Nunito', sans-serif;
-      font-size: 14px;
-      color: var(--text);
-      background: var(--beige-light);
-      outline: none;
-      transition: border-color 0.2s;
-    }
-
-    .form-group input:focus {
-      border-color: var(--coral);
-      background: white;
-    }
-
-    .login-error {
-      background: rgba(241, 91, 91, 0.1);
-      color: var(--coral);
-      padding: 10px 14px;
-      border-radius: var(--radius-sm);
-      font-size: 13px;
-      margin-bottom: 16px;
-      display: none;
-    }
-
-    /* ══════════════════
-       PANEL ADMIN
-    ══════════════════ */
-    #admin-panel {
-      display: none;
-    }
-
-    .admin-layout {
-      display: flex;
-      min-height: 100vh;
-    }
-
-    .admin-sidebar {
-      width: 240px;
-      position: fixed;
-      left: 0;
-      top: 0;
-      height: 100vh;
-      background: var(--green);
-      display: flex;
-      flex-direction: column;
-      z-index: 300;
-    }
-
-    .admin-brand {
-      padding: 24px 20px;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    }
-
-    .admin-brand img {
-      height: 36px;
-      object-fit: contain;
-    }
-
-    .admin-brand-fallback {
-      font-size: 16px;
-      font-weight: 800;
-      color: white;
-    }
-
-    .admin-brand-fallback span {
-      color: var(--coral);
-    }
-
-    .admin-brand p {
-      font-size: 11px;
-      color: rgba(255, 255, 255, 0.4);
-      margin-top: 4px;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-    }
-
-    .admin-nav {
-      flex: 1;
-      padding: 16px 0;
-    }
-
-    .admin-nav-item {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      padding: 12px 20px;
-      color: rgba(255, 255, 255, 0.55);
-      cursor: pointer;
-      font-size: 14px;
-      font-weight: 600;
-      transition: all 0.2s;
-      border-left: 3px solid transparent;
-    }
-
-    .admin-nav-item:hover {
-      color: white;
-      background: rgba(255, 255, 255, 0.06);
-    }
-
-    .admin-nav-item.active {
-      color: white;
-      background: rgba(241, 91, 91, 0.15);
-      border-left-color: var(--coral);
-    }
-
-    .admin-nav-item .icon {
-      font-size: 18px;
-    }
-
-    .admin-sidebar-foot {
-      padding: 16px 20px;
-      border-top: 1px solid rgba(255, 255, 255, 0.1);
-    }
-
-    .btn-exit-admin {
-      width: 100%;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      padding: 10px 14px;
-      background: rgba(255, 255, 255, 0.07);
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      border-radius: var(--radius-sm);
-      color: rgba(255, 255, 255, 0.55);
-      font-family: 'Nunito', sans-serif;
-      font-size: 13px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-
-    .btn-exit-admin:hover {
-      color: white;
-      background: rgba(255, 255, 255, 0.12);
-    }
-
-    .admin-main {
-      margin-left: 240px;
-      flex: 1;
-      background: #F2EAE0;
-      min-height: 100vh;
-    }
-
-    .admin-topbar {
-      background: white;
-      border-bottom: 1px solid var(--border);
-      padding: 18px 36px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    .admin-topbar h1 {
-      font-family: 'Playfair Display', serif;
-      font-size: 26px;
-      font-style: italic;
-      color: var(--green);
-    }
-
-    .admin-content {
-      padding: 32px 36px;
-    }
-
-    .stats-row {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-      gap: 16px;
-      margin-bottom: 32px;
-    }
-
-    .stat-card {
-      background: white;
-      border-radius: var(--radius-sm);
-      padding: 24px;
-      box-shadow: var(--shadow-sm);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .stat-card::after {
-      content: attr(data-icon);
-      position: absolute;
-      right: 14px;
-      top: 14px;
-      font-size: 32px;
-      opacity: 0.12;
-    }
-
-    .stat-label {
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: var(--text-muted);
-      margin-bottom: 6px;
-    }
-
-    .stat-value {
-      font-size: 36px;
-      font-weight: 800;
-      color: var(--green);
-      line-height: 1;
-    }
-
-    .stat-sub {
-      font-size: 12px;
-      color: var(--coral);
-      margin-top: 4px;
-      font-weight: 600;
-    }
-
-    .admin-card {
-      background: white;
-      border-radius: var(--radius-sm);
-      box-shadow: var(--shadow-sm);
-      overflow: hidden;
-      margin-bottom: 24px;
-    }
-
-    .admin-card-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 18px 24px;
-      border-bottom: 1px solid var(--border);
-    }
-
-    .admin-card-header h3 {
-      font-size: 16px;
-      font-weight: 800;
-      color: var(--green);
-    }
-
-    table {
-      width: 100%;
-      border-collapse: collapse;
-    }
-
-    th {
-      padding: 12px 16px;
-      text-align: left;
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--text-muted);
-      background: var(--beige-light);
-      border-bottom: 1px solid var(--border);
-    }
-
-    td {
-      padding: 14px 16px;
-      border-bottom: 1px solid rgba(0, 0, 0, 0.04);
-      font-size: 14px;
-      color: var(--text);
-      vertical-align: middle;
-    }
-
-    tr:last-child td {
-      border-bottom: none;
-    }
-
-    tr:hover td {
-      background: rgba(240, 230, 216, 0.4);
-    }
-
-    .admin-btn {
-      background: var(--green);
-      color: white;
-      border: none;
-      padding: 10px 20px;
-      border-radius: 100px;
-      font-family: 'Nunito', sans-serif;
-      font-size: 13px;
-      font-weight: 700;
-      cursor: pointer;
-      transition: background 0.2s;
-    }
-
-    .admin-btn:hover {
-      background: var(--coral);
-    }
-
-    .admin-btn-sm {
-      padding: 6px 14px;
-      font-size: 12px;
-    }
-
-    .admin-btn-danger {
-      background: var(--coral);
-    }
-
-    .admin-btn-danger:hover {
-      background: var(--coral-dark);
-    }
-
-    .badge-pill-green {
-      background: rgba(27, 61, 47, 0.1);
-      color: var(--green);
-      padding: 4px 10px;
-      border-radius: 100px;
-      font-size: 11px;
-      font-weight: 700;
-    }
-
-    .badge-pill-red {
-      background: rgba(241, 91, 91, 0.1);
-      color: var(--coral);
-      padding: 4px 10px;
-      border-radius: 100px;
-      font-size: 11px;
-      font-weight: 700;
-    }
-
-    .badge-pill-yellow {
-      background: rgba(255, 180, 0, 0.12);
-      color: #B07A00;
-      padding: 4px 10px;
-      border-radius: 100px;
-      font-size: 11px;
-      font-weight: 700;
-    }
-
-    .modal-overlay {
-      position: fixed;
-      inset: 0;
-      background: rgba(27, 61, 47, 0.55);
-      backdrop-filter: blur(6px);
-      z-index: 500;
-      display: none;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .modal-overlay.open {
-      display: flex;
-    }
-
-    .modal {
-      background: white;
-      border-radius: var(--radius);
-      padding: 36px;
-      width: 100%;
-      max-width: 500px;
-      max-height: 90vh;
-      overflow-y: auto;
-      box-shadow: var(--shadow-lg);
-      animation: fadeUp 0.25s ease;
-    }
-
-    .modal h2 {
-      font-size: 20px;
-      font-weight: 800;
-      color: var(--green);
-      margin-bottom: 24px;
-    }
-
-    .modal-actions {
-      display: flex;
-      gap: 12px;
-      justify-content: flex-end;
-      margin-top: 28px;
-      padding-top: 20px;
-      border-top: 1px solid var(--border);
-    }
-
-    .form-row-2 {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 14px;
+    .btn-clear-cart:hover {
+      color: var(--coral)
     }
 
     .toast {
@@ -1587,169 +1079,57 @@
       z-index: 9999;
       opacity: 0;
       transition: all 0.35s;
-      white-space: nowrap;
-      display: flex;
-      align-items: center;
-      gap: 8px;
+      white-space: nowrap
     }
 
     .toast.show {
       opacity: 1;
-      transform: translateX(-50%) translateY(0);
-    }
-
-    .flavor-admin-pill {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      background: var(--green-light);
-      color: var(--green);
-      border: 1.5px solid var(--green);
-      padding: 5px 12px;
-      border-radius: 100px;
-      font-size: 13px;
-      font-weight: 700;
-    }
-
-    .flavor-admin-pill button {
-      background: none;
-      border: none;
-      color: var(--coral);
-      font-size: 14px;
-      cursor: pointer;
-      line-height: 1;
-      padding: 0;
-      font-weight: 800;
-      transition: transform 0.2s;
-    }
-
-    .flavor-admin-pill button:hover {
-      transform: scale(1.2);
+      transform: translateX(-50%) translateY(0)
     }
 
     @keyframes fadeUp {
       from {
         opacity: 0;
-        transform: translateY(16px);
+        transform: translateY(16px)
       }
 
       to {
         opacity: 1;
-        transform: translateY(0);
+        transform: translateY(0)
       }
     }
 
-    .admin-search {
-      padding: 10px 16px;
-      border: 2px solid var(--border);
-      border-radius: 100px;
-      font-family: 'Nunito', sans-serif;
-      font-size: 13px;
-      outline: none;
-      background: var(--beige-light);
-      transition: border-color 0.2s;
-      width: 220px;
-    }
-
-    .admin-search:focus {
-      border-color: var(--coral);
-    }
-
-    .pedido-card {
-      background: white;
-      border-radius: var(--radius-sm);
-      padding: 20px 24px;
-      margin-bottom: 12px;
-      box-shadow: var(--shadow-sm);
-      display: flex;
-      align-items: flex-start;
-      justify-content: space-between;
-      gap: 16px;
-      animation: fadeUp 0.3s ease;
-    }
-
-    .pedido-info h4 {
-      font-size: 15px;
-      font-weight: 700;
-      color: var(--green);
-    }
-
-    .pedido-info p {
-      font-size: 13px;
-      color: var(--text-muted);
-      margin-top: 4px;
-      line-height: 1.5;
-    }
-
-    .pedido-meta {
-      display: flex;
-      gap: 10px;
-      align-items: center;
-      flex-shrink: 0;
-    }
-
-    select.admin-select {
-      padding: 8px 12px;
-      border: 2px solid var(--border);
-      border-radius: var(--radius-sm);
-      font-family: 'Nunito', sans-serif;
-      font-size: 13px;
-      background: white;
-      cursor: pointer;
-      outline: none;
-      transition: border-color 0.2s;
-    }
-
-    select.admin-select:focus {
-      border-color: var(--coral);
-    }
-
-    @media (max-width: 768px) {
-      .nav {
-        padding: 0 20px;
+    @media(max-width:768px) {
+      .nav-inner {
+        padding: 0 20px
       }
 
       .nav-links {
-        display: none;
+        display: none
       }
 
       .hero {
-        padding: 90px 20px 50px;
+        padding: 90px 20px 50px
       }
 
       .section {
-        padding: 60px 20px;
+        padding: 60px 20px
       }
 
       .about-inner {
         grid-template-columns: 1fr;
-        gap: 32px;
+        gap: 32px
       }
 
-      .about-section {
-        padding: 60px 20px;
-      }
-
+      .about-section,
       .cta-section {
-        padding: 60px 20px;
+        padding: 60px 20px
       }
 
       footer {
         padding: 32px 20px;
         flex-direction: column;
-        text-align: center;
-      }
-
-      .admin-sidebar {
-        width: 200px;
-      }
-
-      .admin-main {
-        margin-left: 200px;
-      }
-
-      .admin-content {
-        padding: 20px;
+        text-align: center
       }
     }
   </style>
@@ -1758,81 +1138,15 @@
 <body>
 
   <div class="loader" id="loader">
-    <img src="Logos-01.png" alt="Más Simple" fetchpriority="high" decoding="async"
+    <img src="Logos-01.png" alt="Más Simple"
       onerror="this.style.display='none';document.getElementById('loaderFallback').style.display='block'">
-    <div class="loader-fallback" id="loaderFallback" style="display:none;">Más<span>Simple</span></div>
-  </div>
-
-  <div class="login-overlay" id="loginOverlay">
-    <div class="login-box">
-      <img src="Logos-01.png" alt="Logo" onerror="this.style.display='none'">
-      <h2>Panel Admin</h2>
-      <p>Ingresá para gestionar los productos</p>
-      <div class="login-error" id="loginError">Usuario o contraseña incorrectos</div>
-      <div class="form-group">
-        <label>Usuario</label>
-        <input type="text" id="loginUser" placeholder="admin" />
-      </div>
-      <div class="form-group">
-        <label>Contraseña</label>
-        <input type="password" id="loginPass" placeholder="••••••••" onkeydown="if(event.key==='Enter')doLogin()" />
-      </div>
-      <button class="admin-btn" style="width:100%;padding:14px;margin-top:4px;border-radius:100px;"
-        onclick="doLogin()">Ingresar</button>
-      <button class="btn-clear" onclick="closeLogin()">Cancelar</button>
-    </div>
-  </div>
-
-  <div class="modal-overlay" id="productModal">
-    <div class="modal">
-      <h2 id="modalTitle">Agregar producto</h2>
-      <div class="form-row-2">
-        <div class="form-group">
-          <label>Nombre</label>
-          <input type="text" id="fName" placeholder="Ej: Hamburguesas" />
-        </div>
-        <div class="form-group">
-          <label>Emoji</label>
-          <input type="text" id="fEmoji" placeholder="🍔" maxlength="4" />
-        </div>
-      </div>
-      <div class="form-group">
-        <label>Sabores</label>
-        <div style="display:flex;gap:8px;margin-bottom:10px;">
-          <input type="text" id="fFlavorInput" placeholder="Ej: Zanahoria"
-            style="flex:1;padding:10px 14px;border:2px solid var(--border);border-radius:var(--radius-sm);font-family:'Nunito',sans-serif;font-size:14px;background:var(--beige-light);outline:none;"
-            onkeydown="if(event.key==='Enter'){event.preventDefault();addFlavorPill()}"
-            onfocus="this.style.borderColor='var(--coral)'" onblur="this.style.borderColor='var(--border)'" />
-          <button type="button" onclick="addFlavorPill()"
-            style="background:var(--green);color:white;border:none;padding:10px 18px;border-radius:var(--radius-sm);font-family:'Nunito',sans-serif;font-size:13px;font-weight:700;cursor:pointer;white-space:nowrap;">
-            + Agregar
-          </button>
-        </div>
-        <div id="flavorPillsContainer" style="display:flex;flex-wrap:wrap;gap:8px;min-height:32px;"></div>
-      </div>
-      <div id="optionsContainer"></div>
-      <button class="admin-btn btn-sm" style="margin-top:10px;border-radius:100px;" onclick="addOptionField()">+ Agregar
-        opción de precio</button>
-      <div class="form-group" style="margin-top:16px;">
-        <label>Estado</label>
-        <select id="fStock" class="admin-search" style="width:100%;border-radius:12px;">
-          <option value="disponible">✅ Disponible</option>
-          <option value="agotado">❌ Agotado</option>
-        </select>
-      </div>
-      <div class="modal-actions">
-        <button class="admin-btn"
-          style="background:transparent;color:var(--text-muted);border:2px solid var(--border);border-radius:100px;"
-          onclick="closeProductModal()">Cancelar</button>
-        <button class="admin-btn" onclick="saveProduct()">Guardar</button>
-      </div>
-    </div>
+    <div class="loader-fallback" id="loaderFallback">Más<span>Simple</span></div>
   </div>
 
   <div class="toast" id="toast"></div>
 
-  <div id="public-site">
-    <nav class="nav">
+  <nav class="nav">
+    <div class="nav-inner">
       <div class="nav-logo">
         <img src="Logos-08.png" alt="Más Simple"
           onerror="this.outerHTML='<div class=\'nav-logo-fallback\'>Más<span>Simple</span></div>'">
@@ -1843,157 +1157,149 @@
         <a href="#contacto">Contacto</a>
       </div>
       <div class="nav-actions">
-
-        <button class="btn-cart" onclick="openCart()">
-          🛒 Mi pedido
-          <span class="cart-count" id="cartCount">0</span>
-        </button>
+        <button class="btn-cart" onclick="openCart()">🛒 Mi pedido <span class="cart-count"
+            id="cartCount">0</span></button>
       </div>
-    </nav>
+    </div>
+  </nav>
 
-    <section class="hero">
-      <div class="hero-bg-deco">
-        <img src="02 Elementos gráficos/1.Frutas y verduras/Recurso 4.png" class="float-el appear"
-          style="top:8%;left:2%;width:90px;--delay:0.2s;--dur:6s;--dist:18px;">
-        <img src="02 Elementos gráficos/1.Frutas y verduras/Recurso 5.png" class="float-el appear"
-          style="top:15%;right:5%;width:75px;--delay:0.5s;--dur:7s;--dist:14px;">
-        <img src="02 Elementos gráficos/1.Frutas y verduras/Recurso 6.png" class="float-el appear"
-          style="bottom:18%;left:4%;width:80px;--delay:0.8s;--dur:8s;--dist:20px;">
-        <img src="02 Elementos gráficos/1.Frutas y verduras/Recurso 7.png" class="float-el appear"
-          style="bottom:10%;right:3%;width:70px;--delay:1.1s;--dur:6.5s;--dist:16px;">
-        <img src="02 Elementos gráficos/1.Frutas y verduras/Recurso 10.png" class="float-el appear"
-          style="top:50%;right:8%;width:85px;--delay:1.4s;--dur:7.5s;--dist:12px;">
-        <img src="02 Elementos gráficos/1.Frutas y verduras/Recurso 13.png" class="float-el appear"
-          style="top:30%;left:1%;width:65px;--delay:1.7s;--dur:9s;--dist:22px;">
-        <img src="02 Elementos gráficos/2.Deco extra/Recurso 8.png" class="float-el appear"
-          style="top:70%;left:20%;width:45px;--delay:0.9s;--dur:5.5s;--dist:10px;opacity:0.5;">
-        <img src="02 Elementos gráficos/2.Deco extra/Recurso 9.png" class="float-el appear"
-          style="top:20%;right:22%;width:40px;--delay:1.2s;--dur:6s;--dist:12px;opacity:0.5;">
-        <img src="02 Elementos gráficos/2.Deco extra/Recurso 11.png" class="float-el appear"
-          style="bottom:30%;right:18%;width:38px;--delay:1.5s;--dur:7s;--dist:14px;opacity:0.45;">
-        <img src="02 Elementos gráficos/2.Deco extra/Recurso 12.png" class="float-el appear"
-          style="top:60%;right:25%;width:42px;--delay:0.3s;--dur:8s;--dist:10px;opacity:0.45;">
-        <img src="02 Elementos gráficos/2.Deco extra/Recurso 38.png" class="float-el appear"
-          style="top:5%;left:35%;width:55px;--delay:0.6s;--dur:10s;--dist:8px;opacity:0.3;">
-        <img src="02 Elementos gráficos/2.Deco extra/Recurso 46.png" class="float-el appear"
-          style="bottom:5%;left:40%;width:60px;--delay:1.3s;--dur:9s;--dist:10px;opacity:0.3;">
-        <img src="02 Elementos gráficos/2.Deco extra/Recurso 33.png" class="float-el appear"
-          style="top:42%;left:15%;width:50px;--delay:1.9s;--dur:11s;--dist:16px;opacity:0.25;">
-        <img src="02 Elementos gráficos/2.Deco extra/Recurso 50.png" class="float-el appear"
-          style="bottom:25%;right:12%;width:48px;--delay:0.7s;--dur:8.5s;--dist:12px;opacity:0.3;">
+  <section class="hero">
+    <div class="hero-bg-deco">
+      <img src="02 Elementos gráficos/1.Frutas y verduras/Recurso 4.png" class="float-el appear"
+        style="top:8%;left:2%;width:90px;--delay:0.2s;--dur:6s;--dist:18px;">
+      <img src="02 Elementos gráficos/1.Frutas y verduras/Recurso 5.png" class="float-el appear"
+        style="top:15%;right:5%;width:75px;--delay:0.5s;--dur:7s;--dist:14px;">
+      <img src="02 Elementos gráficos/1.Frutas y verduras/Recurso 6.png" class="float-el appear"
+        style="bottom:18%;left:4%;width:80px;--delay:0.8s;--dur:8s;--dist:20px;">
+      <img src="02 Elementos gráficos/1.Frutas y verduras/Recurso 7.png" class="float-el appear"
+        style="bottom:10%;right:3%;width:70px;--delay:1.1s;--dur:6.5s;--dist:16px;">
+      <img src="02 Elementos gráficos/1.Frutas y verduras/Recurso 10.png" class="float-el appear"
+        style="top:50%;right:8%;width:85px;--delay:1.4s;--dur:7.5s;--dist:12px;">
+      <img src="02 Elementos gráficos/1.Frutas y verduras/Recurso 13.png" class="float-el appear"
+        style="top:30%;left:1%;width:65px;--delay:1.7s;--dur:9s;--dist:22px;">
+      <img src="02 Elementos gráficos/2.Deco extra/Recurso 8.png" class="float-el appear"
+        style="top:70%;left:20%;width:45px;--delay:0.9s;--dur:5.5s;--dist:10px;opacity:0.5;">
+      <img src="02 Elementos gráficos/2.Deco extra/Recurso 9.png" class="float-el appear"
+        style="top:20%;right:22%;width:40px;--delay:1.2s;--dur:6s;--dist:12px;opacity:0.5;">
+      <img src="02 Elementos gráficos/2.Deco extra/Recurso 11.png" class="float-el appear"
+        style="bottom:30%;right:18%;width:38px;--delay:1.5s;--dur:7s;--dist:14px;opacity:0.45;">
+      <img src="02 Elementos gráficos/2.Deco extra/Recurso 12.png" class="float-el appear"
+        style="top:60%;right:25%;width:42px;--delay:0.3s;--dur:8s;--dist:10px;opacity:0.45;">
+      <img src="02 Elementos gráficos/2.Deco extra/Recurso 38.png" class="float-el appear"
+        style="top:5%;left:35%;width:55px;--delay:0.6s;--dur:10s;--dist:8px;opacity:0.3;">
+      <img src="02 Elementos gráficos/2.Deco extra/Recurso 46.png" class="float-el appear"
+        style="bottom:5%;left:40%;width:60px;--delay:1.3s;--dur:9s;--dist:10px;opacity:0.3;">
+      <img src="02 Elementos gráficos/2.Deco extra/Recurso 33.png" class="float-el appear"
+        style="top:42%;left:15%;width:50px;--delay:1.9s;--dur:11s;--dist:16px;opacity:0.25;">
+      <img src="02 Elementos gráficos/2.Deco extra/Recurso 50.png" class="float-el appear"
+        style="bottom:25%;right:12%;width:48px;--delay:0.7s;--dur:8.5s;--dist:12px;opacity:0.3;">
+    </div>
+    <div class="hero-content">
+      <div class="hero-tag">🌿 Comida congelada saludable</div>
+      <h1>Comer rico<br><strong>sin complicarte</strong><br>la vida</h1>
+      <p>Preparados con amor por Camila y Mayra. Todo apto vegetariano, con el respaldo de la nutrición profesional.</p>
+      <div class="hero-btns">
+        <a href="#productos" class="btn-primary">Ver productos 🍽️</a>
+        <a href="https://wa.me/5493425425527" target="_blank" class="btn-secondary">Consultanos</a>
       </div>
-      <div class="hero-content">
-        <div class="hero-tag">🌿 Comida congelada saludable</div>
-        <h1>Comer rico<br><strong>sin complicarte</strong><br>la vida</h1>
-        <p>Preparados con amor por Camila y Mayra. Todo apto vegetariano, con el respaldo de la nutrición profesional.
-        </p>
-        <div class="hero-btns">
-          <a href="#productos" class="btn-primary">Ver productos 🍽️</a>
-          <a href="https://wa.me/5493425425527" target="_blank" class="btn-secondary">Consultanos</a>
-        </div>
-        <div class="hero-badges">
-          <span class="badge-pill">🥦 Apto vegetariano</span>
-          <span class="badge-pill">❄️ Congelado fresco</span>
-          <span class="badge-pill">👩‍⚕️ Respaldo nutricional</span>
-          <span class="badge-pill">🏠 Hecho en casa</span>
-        </div>
+      <div class="hero-badges">
+        <span class="badge-pill">🥦 Apto vegetariano</span>
+        <span class="badge-pill">❄️ Congelado fresco</span>
+        <span class="badge-pill">👩‍⚕️ Respaldo nutricional</span>
+        <span class="badge-pill">🏠 Hecho en casa</span>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <section class="section" id="productos">
-      <div class="section-header">
-        <div class="section-eyebrow">Lo que hacemos</div>
-        <div class="section-title">Nuestros <strong>productos</strong></div>
-        <p class="section-sub">Elegí las cantidades que necesitás y armá tu pedido</p>
+  <section class="section" id="productos">
+    <div class="section-header">
+      <div class="section-eyebrow">Lo que hacemos</div>
+      <div class="section-title">Nuestros <strong>productos</strong></div>
+      <p class="section-sub">Elegí las cantidades que necesitás y armá tu pedido</p>
+    </div>
+    <div class="products-grid" id="publicProductsGrid">
+      <div style="grid-column:1/-1;text-align:center;padding:60px;color:var(--text-muted);">
+        <div style="font-size:48px;">⏳</div>
+        <p style="margin-top:12px;">Cargando productos...</p>
       </div>
-      <div class="products-grid" id="publicProductsGrid"></div>
-    </section>
+    </div>
+  </section>
 
-    <section class="about-section" id="nosotras">
-      <div class="about-inner">
-        <div class="about-text">
-          <div class="section-eyebrow">Quiénes somos</div>
-          <h2 class="about-title">Camila <strong>&</strong> Mayra</h2>
-          <p class="about-desc">Somos dos amigas apasionadas por la comida real y el bienestar. Camila, nutricionista, y
-            Mayra, cocinera de corazón, creamos juntas una línea de comidas congeladas pensadas para que comer sano sea
-            fácil, rico y accesible.</p>
-          <p class="about-desc" style="margin-bottom:0;">Cada producto está elaborado con ingredientes frescos, sin
-            conservantes, y con toda la ciencia nutricional detrás para que tu cuerpo se sienta bien.</p>
-        </div>
-        <div class="about-cards">
-          <div class="about-card">
-            <div class="about-card-icon">👩‍⚕️</div>
-            <div>
-              <h4>Camila — Nutricionista</h4>
-              <p>Diseña cada receta pensando en el balance nutricional y el bienestar integral.</p>
-            </div>
-          </div>
-          <div class="about-card">
-            <div class="about-card-icon">👩‍🍳</div>
-            <div>
-              <h4>Mayra — Corazón de la cocina</h4>
-              <p>Convierte cada receta en algo delicioso, casero y lleno de amor.</p>
-            </div>
-          </div>
-          <div class="about-card">
-            <div class="about-card-icon">🌿</div>
-            <div>
-              <h4>100% vegetariano</h4>
-              <p>Todos nuestros productos son aptos vegetarianos y libres de conservantes.</p>
-            </div>
+  <section class="about-section" id="nosotras">
+    <div class="about-inner">
+      <div class="about-text">
+        <div class="section-eyebrow">Quiénes somos</div>
+        <h2 class="about-title">Camila <strong>&</strong> Mayra</h2>
+        <p class="about-desc">Somos dos amigas apasionadas por la comida real y el bienestar. Camila, nutricionista, y
+          Mayra, cocinera de corazón, creamos juntas una línea de comidas congeladas pensadas para que comer sano sea
+          fácil, rico y accesible.</p>
+        <p class="about-desc" style="margin-bottom:0;">Cada producto está elaborado con ingredientes frescos, sin
+          conservantes, y con toda la ciencia nutricional detrás para que tu cuerpo se sienta bien.</p>
+      </div>
+      <div class="about-cards">
+        <div class="about-card">
+          <div class="about-card-icon">👩‍⚕️</div>
+          <div>
+            <h4>Camila — Nutricionista</h4>
+            <p>Diseña cada receta pensando en el balance nutricional y el bienestar integral.</p>
           </div>
         </div>
+        <div class="about-card">
+          <div class="about-card-icon">👩‍🍳</div>
+          <div>
+            <h4>Mayra — Corazón de la cocina</h4>
+            <p>Convierte cada receta en algo delicioso, casero y lleno de amor.</p>
+          </div>
+        </div>
+        <div class="about-card">
+          <div class="about-card-icon">🌿</div>
+          <div>
+            <h4>100% vegetariano</h4>
+            <p>Todos nuestros productos son aptos vegetarianos y libres de conservantes.</p>
+          </div>
+        </div>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <section class="cta-section" id="contacto">
-      <div class="cta-deco tl"><img src="02 Elementos gráficos/2.Deco extra/Recurso 17.png"></div>
-      <div class="cta-deco tr"><img src="02 Elementos gráficos/2.Deco extra/Recurso 18.png"></div>
-      <div class="cta-deco bl"><img src="02 Elementos gráficos/2.Deco extra/Recurso 19.png"></div>
-      <div class="cta-deco br"><img src="02 Elementos gráficos/2.Deco extra/Recurso 20.png"></div>
-      <div class="cta-inner">
-        <div class="section-eyebrow">Contacto</div>
-        <h2 class="cta-title">¿Tenés <strong>dudas</strong><br>o querés pedir?</h2>
-        <p class="cta-sub">Escribinos por WhatsApp y te respondemos al toque 🚀</p>
-        <a href="https://wa.me/5493425425527" target="_blank" class="btn-whatsapp">
-          <svg viewBox="0 0 24 24">
-            <path
-              d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
-          </svg>
-          Escribirnos por WhatsApp
-        </a>
-      </div>
-    </section>
-
-    <footer>
-      <div class="footer-logo">
-        <img src="Logos-08.png" alt="Más Simple"
-          onerror="this.outerHTML='<div class=\'footer-logo-fallback\'>Más<span>Simple</span></div>'">
-      </div>
-      <div style="text-align: center;">
-        <p style="margin-bottom: 5px;">© 2026 Más Simple — Comida saludable congelada</p>
-        <p style="color:rgba(255,255,255,0.6);font-size:12px;">
-          Design & Code by
-          <a href="https://www.linkedin.com/in/juanvanni/" target="_blank"
-            style="color: white; font-weight: 800; text-decoration: none; transition: color 0.2s; display: inline-flex; align-items: center; gap: 4px;"
-            onmouseover="this.style.color='var(--coral)'" onmouseout="this.style.color='white'">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"
-              style="width: 14px; height: 14px; fill: currentColor; margin-bottom: 2px;">
-              <path
-                d="M100.28 448H7.4V148.9h92.88zM53.79 108.1C24.09 108.1 0 83.5 0 53.8a53.79 53.79 0 0 1 107.58 0c0 29.7-24.1 54.3-53.79 54.3zM447.9 448h-92.68V302.4c0-34.7-.7-79.2-48.29-79.2-48.29 0-55.69 37.7-55.69 76.7V448h-92.78V148.9h89.08v40.8h1.3c12.4-23.5 42.69-48.3 87.88-48.3 94 0 111.28 61.9 111.28 142.3V448z" />
-            </svg>
-            Juanjo Vanni
-          </a>
-        </p>
-      </div>
-      <a href="https://www.instagram.com/massimple.sf/" target="_blank"
-        style="color:rgba(255,255,255,0.8);font-size:14px;text-decoration:none;font-weight:bold;transition:color 0.2s;"
-        onmouseover="this.style.color='var(--coral)'" onmouseout="this.style.color='rgba(255,255,255,0.8)'">
-        📸 @massimple.sf
+  <section class="cta-section" id="contacto">
+    <div class="cta-deco tl"><img src="02 Elementos gráficos/2.Deco extra/Recurso 17.png"></div>
+    <div class="cta-deco tr"><img src="02 Elementos gráficos/2.Deco extra/Recurso 18.png"></div>
+    <div class="cta-deco bl"><img src="02 Elementos gráficos/2.Deco extra/Recurso 19.png"></div>
+    <div class="cta-deco br"><img src="02 Elementos gráficos/2.Deco extra/Recurso 20.png"></div>
+    <div class="cta-inner">
+      <div class="section-eyebrow">Contacto</div>
+      <h2 class="cta-title">¿Tenés <strong>dudas</strong><br>o querés pedir?</h2>
+      <p class="cta-sub">Escribinos por WhatsApp y te respondemos al toque 🚀</p>
+      <a href="https://wa.me/5493425425527" target="_blank" class="btn-whatsapp">
+        <svg viewBox="0 0 24 24">
+          <path
+            d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
+        </svg>
+        Escribirnos por WhatsApp
       </a>
-    </footer>
-  </div>
+    </div>
+  </section>
 
+  <footer>
+    <div class="footer-logo">
+      <img src="Logos-08.png" alt="Más Simple"
+        onerror="this.outerHTML='<div class=\'footer-logo-fallback\'>Más<span>Simple</span></div>'">
+    </div>
+    <div style="text-align:center;">
+      <p style="margin-bottom:5px;">© 2026 Más Simple — Comida saludable congelada</p>
+      <p style="color:rgba(255,255,255,0.6);font-size:12px;">Design & Code by <a
+          href="https://www.linkedin.com/in/juanvanni/" target="_blank"
+          style="color:white;font-weight:800;text-decoration:none;" onmouseover="this.style.color='var(--coral)'"
+          onmouseout="this.style.color='white'">Juanjo Vanni</a></p>
+    </div>
+    <a href="https://www.instagram.com/massimple.sf/" target="_blank"
+      style="color:rgba(255,255,255,0.8);font-size:14px;text-decoration:none;font-weight:bold;"
+      onmouseover="this.style.color='var(--coral)'" onmouseout="this.style.color='rgba(255,255,255,0.8)'">📸
+      @massimple.sf</a>
+  </footer>
+
+  <!-- CARRITO -->
   <div class="cart-overlay" id="cartOverlay" onclick="if(event.target===this)closeCart()">
     <div class="cart-panel">
       <div class="cart-header">
@@ -2002,218 +1308,118 @@
       </div>
       <div class="cart-items" id="cartItems"></div>
       <div class="cart-footer" id="cartFooter" style="display:none;">
-
         <div class="cart-name-field">
-          <label>¿Quién hace el pedido? (Nombre completo)</label>
+          <label>¿Quién hace el pedido?</label>
           <input type="text" id="orderClientName" placeholder="Ej: Juan Pérez" oninput="validateCheckoutButtons()">
         </div>
-
-        <div class="cart-total">
-          <span>Total</span>
-          <strong id="cartTotal">$0</strong>
-        </div>
+        <div class="cart-total"><span>Total</span><strong id="cartTotal">$0</strong></div>
         <p class="cart-note">Te vamos a redirigir a WhatsApp con el detalle completo del pedido 🚀</p>
-
-        <div style="display: flex; gap: 8px; flex-direction: column;">
-          <a class="btn-checkout disabled" id="btnCheckoutCamila" href="#" target="_blank"
-            onclick="registrarPedido('Camila')">
-            <svg viewBox="0 0 24 24">
-              <path
-                d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
-            </svg>
-            Pedir a Camila
-          </a>
-          <a class="btn-checkout mayra disabled" id="btnCheckoutMayra" href="#" target="_blank"
-            onclick="registrarPedido('Mayra')">
-            <svg viewBox="0 0 24 24">
-              <path
-                d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
-            </svg>
-            Pedir a Mayra
-          </a>
-        </div>
-
-        <button class="btn-clear" onclick="clearCart()">Vaciar carrito</button>
+        <a href="#" id="btnCheckoutCamila" class="btn-checkout disabled" onclick="registrarPedido('Camila')"
+          target="_blank">
+          <svg viewBox="0 0 24 24">
+            <path
+              d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
+          </svg>
+          Pedir a Camila
+        </a>
+        <a href="#" id="btnCheckoutMayra" class="btn-checkout mayra disabled" onclick="registrarPedido('Mayra')"
+          target="_blank">
+          <svg viewBox="0 0 24 24">
+            <path
+              d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
+          </svg>
+          Pedir a Mayra
+        </a>
+        <button class="btn-clear-cart" onclick="clearCart()">Vaciar carrito</button>
       </div>
     </div>
   </div>
 
-  <div id="admin-panel">
-    <div class="admin-layout">
-      <aside class="admin-sidebar">
-        <div class="admin-brand">
-          <img src="Logos-08.png" alt="MS"
-            onerror="this.outerHTML='<div class=\'admin-brand-fallback\'>Más<span>Simple</span></div>'">
-          <p>Panel admin</p>
-        </div>
-        <nav class="admin-nav">
-          <div class="admin-nav-item active" onclick="showAdminSec('dashboard',this)">
-            <span class="icon">📊</span> Dashboard
-          </div>
-          <div class="admin-nav-item" onclick="showAdminSec('productos',this)">
-            <span class="icon">🥦</span> Productos
-          </div>
-          <div class="admin-nav-item" onclick="showAdminSec('pedidos',this)">
-            <span class="icon">🛎️</span> Pedidos
-          </div>
-        </nav>
-        <div class="admin-sidebar-foot">
-          <button class="btn-exit-admin" onclick="exitAdmin()">🚪 Volver al sitio</button>
-        </div>
-      </aside>
-      <main class="admin-main">
-        <div class="admin-topbar">
-          <h1 id="adminTitle">Dashboard</h1>
-          <span style="font-size:13px;color:var(--text-muted);font-weight:600;">Más Simple ✦</span>
-        </div>
-        <div class="admin-sec active admin-content" id="sec-dashboard">
-          <div class="stats-row">
-            <div class="stat-card" data-icon="🥦">
-              <div class="stat-label">Productos</div>
-              <div class="stat-value" id="st-total">0</div>
-              <div class="stat-sub">En el menú</div>
-            </div>
-            <div class="stat-card" data-icon="✅">
-              <div class="stat-label">Disponibles</div>
-              <div class="stat-value" id="st-disp">0</div>
-              <div class="stat-sub">Con stock</div>
-            </div>
-            <div class="stat-card" data-icon="🛎️">
-              <div class="stat-label">Pedidos</div>
-              <div class="stat-value" id="st-ped">0</div>
-              <div class="stat-sub">Recibidos</div>
-            </div>
-            <div class="stat-card" data-icon="❌">
-              <div class="stat-label">Sin stock</div>
-              <div class="stat-value" id="st-agot">0</div>
-              <div class="stat-sub">A reponer</div>
-            </div>
-          </div>
-          <div class="admin-card">
-            <div class="admin-card-header">
-              <h3>Últimos pedidos</h3>
-            </div>
-            <div id="dash-pedidos" style="padding:16px;"></div>
-          </div>
-        </div>
-        <div class="admin-sec admin-content" id="sec-productos" style="display:none;">
-          <div class="admin-card">
-            <div class="admin-card-header">
-              <h3>Productos del menú</h3>
-              <button class="admin-btn admin-btn-sm" onclick="openProductModal()">+ Agregar</button>
-            </div>
-            <table>
-              <thead>
-                <tr>
-                  <th>Emoji</th>
-                  <th>Nombre</th>
-                  <th>Sabores</th>
-                  <th>Opciones de precio</th>
-                  <th>Estado</th>
-                  <th>Acciones</th>
-                </tr>
-              </thead>
-              <tbody id="adminProdTable"></tbody>
-            </table>
-          </div>
-        </div>
-        <div class="admin-sec admin-content" id="sec-pedidos" style="display:none;">
-          <div id="adminPedidosList"></div>
-        </div>
-      </main>
-    </div>
-  </div>
-
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script>
-    const defaultProducts = [
-      { id: 'p1', name: 'Hamburguesas', emoji: '🍔', flavors: ['Zanahoria', 'Lenteja', 'Remolacha'], options: [{ label: 'x 2 unidades', price: 3000 }, { label: 'x 4 unidades', price: 5000 }, { label: 'x 6 unidades', price: 7500 }], stock: 'disponible' },
-      { id: 'p2', name: 'Tartitas', emoji: '🥧', flavors: ['Acelga', 'Calabaza y Cebolla', 'Zapallito'], options: [{ label: 'x 2 unidades', price: 3000 }, { label: 'x 6 unidades', price: 7000 }, { label: 'x 2 unidades (Integral)', price: 4000, subtype: 'Integral' }, { label: 'x 6 unidades (Integral)', price: 10000, subtype: 'Integral' }], stock: 'disponible' },
-      { id: 'p3', name: 'Albóndigas', emoji: '🧆', flavors: ['Garbanzo y Zanahoria'], options: [{ label: 'x 12 unidades', price: 3000 }], stock: 'disponible' },
-      { id: 'p4', name: 'Caritas de Papa', emoji: '🥔', flavors: [], options: [{ label: 'x 12 unidades', price: 4000 }], stock: 'disponible' },
-    ];
+    const { createClient } = supabase;
+    const sb = createClient(
+      'https://zahlthwktowwbozbhvxd.supabase.co',
+      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InphaGx0aHdrdG93d2JvemJodnhkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzI4MjU1MDcsImV4cCI6MjA4ODQwMTUwN30.o1IYkyuOJ-N0KshEvlBby6t6pg0g2HqF9ewvMXJjkrM'
+    );
 
-    let products = [...defaultProducts];
-    let orders = [];
-    let cart = [];
-    let editingId = null;
-    let db = null;
+    let products = [], cart = [];
 
-    async function initFirebase() {
-      try {
-        const { initializeApp } = await import('https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js');
-        const { getFirestore, collection, setDoc, deleteDoc, doc, onSnapshot } = await import('https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js');
-        const firebaseConfig = { apiKey: "AIzaSyADiiMHERKOp0pc1gtKQWXt_RX2vxLGQYE", authDomain: "mas-simple-web.firebaseapp.com", projectId: "mas-simple-web", storageBucket: "mas-simple-web.firebasestorage.app", messagingSenderId: "121331767904", appId: "1:121331767904:web:9690770898449346640105" };
-        const app = initializeApp(firebaseConfig);
-        db = getFirestore(app);
-        onSnapshot(collection(db, 'products'), snapshot => {
-          if (snapshot.empty) { defaultProducts.forEach(p => setDoc(doc(db, 'products', p.id), p)); }
-          else { products = snapshot.docs.map(d => d.data()); renderPublic(); if (document.getElementById('sec-productos').style.display !== 'none') renderAdminProds(); updateStats(); }
-        });
-        onSnapshot(collection(db, 'orders'), snapshot => {
-          orders = snapshot.docs.map(d => d.data());
-          orders.sort((a, b) => b.timestamp - a.timestamp);
-          updateStats();
-          if (document.getElementById('sec-pedidos').style.display !== 'none') renderAdminPedidos();
-          renderDashPedidos();
-        });
-        window._fbSaveProduct = async (p) => await setDoc(doc(db, 'products', p.id), p);
-        window._fbDeleteProduct = async (id) => await deleteDoc(doc(db, 'products', id));
-        window._fbSaveOrder = async (o) => await setDoc(doc(db, 'orders', o.id), o);
-        window._fbDeleteOrder = async (id) => await deleteDoc(doc(db, 'orders', id));
-      } catch (err) { products = JSON.parse(localStorage.getItem('ms_products') || 'null') || defaultProducts; orders = JSON.parse(localStorage.getItem('ms_orders') || '[]'); renderPublic(); }
+    async function init() {
+      const { data } = await sb.from('productos').select('*').order('created_at', { ascending: true });
+      products = data || [];
+      renderPublic();
+      sb.channel('pub').on('postgres_changes', { event: '*', schema: 'public', table: 'productos' }, async () => {
+        const { data } = await sb.from('productos').select('*').order('created_at', { ascending: true });
+        products = data || [];
+        renderPublic();
+      }).subscribe();
     }
-
-    window.addEventListener('load', () => {
-      setTimeout(() => { const l = document.getElementById('loader'); l.style.opacity = '0'; setTimeout(() => l.style.display = 'none', 500); }, 800);
-      initFirebase();
-      setTimeout(() => { document.querySelectorAll('.float-el.appear').forEach((el, i) => { const delay = parseFloat(getComputedStyle(el).getPropertyValue('--delay')) || (i * 0.15); setTimeout(() => { el.style.opacity = '1'; el.style.transform = 'translateY(0) scale(1)'; el.style.transition = 'opacity 0.8s ease, transform 0.8s ease'; setTimeout(() => { el.style.transition = ''; el.classList.add('floating'); }, 900); }, delay * 1000); }); }, 900);
-    });
 
     function renderPublic() {
       const grid = document.getElementById('publicProductsGrid');
       const avail = products.filter(p => p.stock === 'disponible');
-      if (!avail.length) { grid.innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:60px;color:var(--text-muted);"><div style="font-size:48px;">🍽️</div><p style="margin-top:12px;">Pronto habrá productos disponibles</p></div>`; return; }
+      if (!avail.length) {
+        grid.innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:60px;color:var(--text-muted);"><div style="font-size:48px;">🍽️</div><p style="margin-top:12px;">Pronto habrá productos disponibles</p></div>`;
+        return;
+      }
       grid.innerHTML = avail.map((p, i) => {
         const hasFlavors = p.flavors && p.flavors.length > 1;
-        const flavorHtml = hasFlavors ? `<div class="flavor-step"><div class="step-label">1. Elegí el sabor</div><div class="flavor-pills" id="flavors-${p.id}">${p.flavors.map(f => `<button class="flavor-pill" onclick="selectFlavor('${p.id}', this, '${f}')">${f}</button>`).join('')}</div></div><div class="flavor-step"><div class="step-label" id="step2-${p.id}" style="opacity:0.4;">2. Elegí la cantidad</div><div class="product-options" id="opts-${p.id}">${p.options.map((opt, oi) => `<div class="option-row" onclick="addToCart('${p.id}', ${oi}, getSelectedFlavor('${p.id}'))"><span class="option-label">${opt.label}${opt.subtype ? `<span class="option-subtype">${opt.subtype}</span>` : ''}</span><div style="display:flex;align-items:center;gap:10px;"><span class="option-price">$${opt.price.toLocaleString('es-AR')}</span><button class="btn-add" onclick="event.stopPropagation();addToCart('${p.id}', ${oi}, getSelectedFlavor('${p.id}'))">+</button></div></div>`).join('')}</div></div>` : `<div class="product-options visible" id="opts-${p.id}">${p.options.map((opt, oi) => `<div class="option-row" onclick="addToCart('${p.id}', ${oi}, '')"><span class="option-label">${opt.label}${opt.subtype ? `<span class="option-subtype">${opt.subtype}</span>` : ''}</span><div style="display:flex;align-items:center;gap:10px;"><span class="option-price">$${opt.price.toLocaleString('es-AR')}</span><button class="btn-add" onclick="event.stopPropagation();addToCart('${p.id}', ${oi}, '')">+</button></div></div>`).join('')}</div>`;
-        return `<div class="product-card" style="animation-delay:${i * 0.07}s"><div class="product-card-img"><div class="prod-emoji">${p.emoji || '🥗'}</div><img src="02 Elementos gráficos/2.Deco extra/Recurso ${20 + (i % 10)}.png" class="product-deco tr" onerror="this.style.display='none'"><img src="02 Elementos gráficos/2.Deco extra/Recurso ${30 + (i % 8)}.png" class="product-deco bl" onerror="this.style.display='none'"><div class="veg-badge">🌿 Vegetariano</div></div><div class="product-body"><div class="product-name">${p.name}</div>${flavorHtml}</div></div>`;
+        const imgHtml = p.foto_url ? `<img src="${p.foto_url}" class="prod-photo" alt="${p.name}" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">` : '';
+        const emojiHtml = `<div class="prod-emoji"${p.foto_url ? ' style="display:none;"' : ''}>${p.emoji || '🥗'}</div>`;
+        const optsHtml = (p.options || []).map((opt, oi) => `
+        <div class="option-row" onclick="${hasFlavors ? `addToCart('${p.id}',${oi},getFlav('${p.id}'))` : `addToCart('${p.id}',${oi},'')`}">
+          <span class="option-label">${opt.label}${opt.subtype ? `<span class="option-subtype">${opt.subtype}</span>` : ''}</span>
+          <div style="display:flex;align-items:center;gap:10px;">
+            <span class="option-price">$${Number(opt.price).toLocaleString('es-AR')}</span>
+            <button class="btn-add" onclick="event.stopPropagation();${hasFlavors ? `addToCart('${p.id}',${oi},getFlav('${p.id}'))` : `addToCart('${p.id}',${oi},'')`}">+</button>
+          </div>
+        </div>`).join('');
+        const flavorHtml = hasFlavors
+          ? `<div class="flavor-step"><div class="step-label">1. Elegí el sabor</div><div class="flavor-pills" id="flavors-${p.id}">${p.flavors.map(f => `<button class="flavor-pill" onclick="selectFlavor('${p.id}',this)">${f}</button>`).join('')}</div></div><div class="flavor-step"><div class="step-label" id="step2-${p.id}" style="opacity:0.4;">2. Elegí la cantidad</div><div class="product-options" id="opts-${p.id}">${optsHtml}</div></div>`
+          : `<div class="product-options visible" id="opts-${p.id}">${optsHtml}</div>`;
+        return `<div class="product-card" style="animation-delay:${i * 0.07}s">
+        <div class="product-card-img">${imgHtml}${emojiHtml}
+          <img src="02 Elementos gráficos/2.Deco extra/Recurso ${20 + (i % 10)}.png" class="product-deco tr" onerror="this.style.display='none'">
+          <img src="02 Elementos gráficos/2.Deco extra/Recurso ${30 + (i % 8)}.png" class="product-deco bl" onerror="this.style.display='none'">
+          <div class="veg-badge">🌿 Vegetariano</div>
+        </div>
+        <div class="product-body"><div class="product-name">${p.name}</div>${flavorHtml}</div>
+      </div>`;
       }).join('');
     }
 
-    function selectFlavor(productId, btn, flavor) { document.querySelectorAll(`#flavors-${productId} .flavor-pill`).forEach(b => b.classList.remove('selected')); btn.classList.add('selected'); document.getElementById('opts-' + productId).classList.add('visible'); const s2 = document.getElementById('step2-' + productId); if (s2) s2.style.opacity = '1'; }
-    function getSelectedFlavor(productId) { const sel = document.querySelector(`#flavors-${productId} .flavor-pill.selected`); return sel ? sel.textContent.trim() : ''; }
+    function selectFlavor(pid, btn) {
+      document.querySelectorAll(`#flavors-${pid} .flavor-pill`).forEach(b => b.classList.remove('selected'));
+      btn.classList.add('selected');
+      document.getElementById('opts-' + pid).classList.add('visible');
+      const s2 = document.getElementById('step2-' + pid); if (s2) s2.style.opacity = '1';
+    }
+    function getFlav(pid) { const s = document.querySelector(`#flavors-${pid} .flavor-pill.selected`); return s ? s.textContent.trim() : ''; }
 
-    function addToCart(productId, optionIdx, flavor) {
-      const p = products.find(x => x.id === productId);
+    function addToCart(pid, oi, flavor) {
+      const p = products.find(x => x.id === pid);
       if (p.flavors && p.flavors.length > 1 && !flavor) { showToast('⚠️ Primero elegí el sabor'); return; }
-      const opt = p.options[optionIdx];
-      const key = productId + '-' + optionIdx + '-' + (flavor || '');
-      const existing = cart.find(i => i.key === key);
-      if (existing) { existing.qty++; } else { cart.push({ key, productId, optionIdx, name: p.name, emoji: p.emoji, label: opt.label, flavor: flavor || '', price: opt.price, qty: 1 }); }
-      updateCartUI();
-      showToast(`✅ Agregado al pedido`);
+      const opt = p.options[oi];
+      const key = pid + '-' + oi + '-' + (flavor || '');
+      const ex = cart.find(i => i.key === key);
+      if (ex) { ex.qty++; } else { cart.push({ key, pid, oi, name: p.name, emoji: p.emoji || '🥗', label: opt.label, flavor: flavor || '', price: opt.price, qty: 1 }); }
+      updateCartUI(); showToast('✅ Agregado al pedido');
       const cc = document.getElementById('cartCount'); cc.classList.remove('bump'); void cc.offsetWidth; cc.classList.add('bump');
     }
-
     function removeFromCart(key) { cart = cart.filter(i => i.key !== key); updateCartUI(); }
     function clearCart() { if (!confirm('¿Vaciar el carrito?')) return; cart = []; updateCartUI(); }
 
     function validateCheckoutButtons() {
-      const name = document.getElementById('orderClientName').value.trim();
-      const btnC = document.getElementById('btnCheckoutCamila');
-      const btnM = document.getElementById('btnCheckoutMayra');
-      if (name.length >= 3 && cart.length > 0) {
-        btnC.classList.remove('disabled'); btnM.classList.remove('disabled');
-      } else {
-        btnC.classList.add('disabled'); btnM.classList.add('disabled');
-      }
+      const ok = document.getElementById('orderClientName').value.trim().length >= 3 && cart.length > 0;
+      document.getElementById('btnCheckoutCamila').classList.toggle('disabled', !ok);
+      document.getElementById('btnCheckoutMayra').classList.toggle('disabled', !ok);
     }
 
     function updateCartUI() {
       const total = cart.reduce((s, i) => s + i.price * i.qty, 0);
       document.getElementById('cartCount').textContent = cart.reduce((s, i) => s + i.qty, 0);
-      const itemsEl = document.getElementById('cartItems');
-      const footerEl = document.getElementById('cartFooter');
+      const itemsEl = document.getElementById('cartItems'), footerEl = document.getElementById('cartFooter');
       if (!cart.length) { itemsEl.innerHTML = `<div class="cart-empty"><div class="empty-icon">🛒</div><p>Tu carrito está vacío.</p></div>`; footerEl.style.display = 'none'; return; }
       itemsEl.innerHTML = cart.map(item => `<div class="cart-item"><div class="cart-item-icon">${item.emoji}</div><div class="cart-item-info"><div class="cart-item-name">${item.name}${item.flavor ? ` — ${item.flavor}` : ''}</div><div class="cart-item-detail">${item.label} × ${item.qty}</div></div><div class="cart-item-price">$${(item.price * item.qty).toLocaleString('es-AR')}</div><button class="btn-remove" onclick="removeFromCart('${item.key}')">✕</button></div>`).join('');
       footerEl.style.display = 'block';
@@ -2225,59 +1431,35 @@
       const cliente = document.getElementById('orderClientName').value.trim();
       if (!cart.length || cliente.length < 3) return;
       const total = cart.reduce((s, i) => s + i.price * i.qty, 0);
-      const itemsStr = cart.map(i => `${i.qty}x ${i.name} ${i.flavor ? '(' + i.flavor + ')' : ''}`).join(', ');
-      const order = { id: uid(), name: `${cliente} (A ${vendedora})`, items: itemsStr, total: total, status: 'pendiente', date: new Date().toLocaleString('es-AR'), timestamp: Date.now() };
-      if (window._fbSaveOrder) { await window._fbSaveOrder(order); }
-
+      await sb.from('pedidos').insert({
+        id: uid(), name: cliente,
+        items: cart.map(i => `${i.qty}x ${i.name}${i.flavor ? ` (${i.flavor})` : ''}`).join(', '),
+        items_json: cart.map(i => ({ name: i.name, flavor: i.flavor, label: i.label, qty: i.qty, price: i.price })),
+        total, status: 'pendiente', date: new Date().toLocaleString('es-AR'), timestamp: Date.now(), vendedora
+      });
       let msg = `¡Hola Más Simple! 👋 Soy *${cliente}*. Quiero hacer este pedido:%0A%0A`;
       cart.forEach(item => { msg += `• ${item.name}${item.flavor ? ` (${item.flavor})` : ''} — ${item.label} x${item.qty} = $${(item.price * item.qty).toLocaleString('es-AR')}%0A`; });
-      msg += `%0A*TOTAL: $${total.toLocaleString('es-AR')}*%0A%0AGracias! 🥦`;
+      msg += `%0A*TOTAL: $${total.toLocaleString('es-AR')}*%0AGracias! 🥦`;
       const num = vendedora === 'Camila' ? '5493425425527' : '5493425410363';
-
-      // Actualizamos el href del botón justo antes de abrir
       const btnId = vendedora === 'Camila' ? 'btnCheckoutCamila' : 'btnCheckoutMayra';
       document.getElementById(btnId).href = `https://wa.me/${num}?text=${msg}`;
     };
 
     function openCart() { document.getElementById('cartOverlay').classList.add('open'); updateCartUI(); }
     function closeCart() { document.getElementById('cartOverlay').classList.remove('open'); }
-    function openLogin() { document.getElementById('loginOverlay').classList.add('open'); }
-    function closeLogin() { document.getElementById('loginOverlay').classList.remove('open'); document.getElementById('loginError').style.display = 'none'; }
-    function doLogin() { const u = document.getElementById('loginUser').value; const p = document.getElementById('loginPass').value; if (u === 'admin' && p === 'admin123') { closeLogin(); openAdmin(); } else { document.getElementById('loginError').style.display = 'block'; } }
-    function openAdmin() { document.getElementById('public-site').style.display = 'none'; document.getElementById('admin-panel').style.display = 'block'; showAdminSec('dashboard', document.querySelector('.admin-nav-item')); updateStats(); }
-    function exitAdmin() { document.getElementById('admin-panel').style.display = 'none'; document.getElementById('public-site').style.display = 'block'; renderPublic(); }
-    function showAdminSec(id, el) { document.querySelectorAll('.admin-nav-item').forEach(n => n.classList.remove('active')); el.classList.add('active'); document.querySelectorAll('.admin-sec').forEach(s => s.style.display = 'none'); document.getElementById('sec-' + id).style.display = 'block'; document.getElementById('adminTitle').textContent = { dashboard: 'Dashboard', productos: 'Productos', pedidos: 'Pedidos' }[id]; if (id === 'productos') renderAdminProds(); if (id === 'pedidos') renderAdminPedidos(); if (id === 'dashboard') { updateStats(); renderDashPedidos(); } }
-    function updateStats() { document.getElementById('st-total').textContent = products.length; document.getElementById('st-disp').textContent = products.filter(p => p.stock === 'disponible').length; document.getElementById('st-agot').textContent = products.filter(p => p.stock === 'agotado').length; document.getElementById('st-ped').textContent = orders.length; }
-    function renderDashPedidos() { const el = document.getElementById('dash-pedidos'); if (!orders.length) { el.innerHTML = `<p style="color:var(--text-muted);padding:20px;text-align:center;">Sin pedidos todavía</p>`; return; } el.innerHTML = orders.slice(0, 5).map(o => `<div class="pedido-card"><div class="pedido-info"><h4>${o.name}</h4><p>📋 ${o.items} · 💰 $${Number(o.total).toLocaleString('es-AR')}</p></div><span class="badge-pill-${o.status === 'pendiente' ? 'yellow' : o.status === 'confirmado' ? 'green' : 'red'}">${o.status}</span></div>`).join(''); }
-    function renderAdminProds() { const tbody = document.getElementById('adminProdTable'); tbody.innerHTML = products.map(p => `<tr><td style="font-size:24px;">${p.emoji}</td><td><strong>${p.name}</strong></td><td style="color:var(--text-muted);font-size:13px;">${(p.flavors || []).join(', ') || '—'}</td><td style="font-size:13px;">${p.options.map(o => `${o.label}: $${o.price.toLocaleString('es-AR')}`).join('<br>')}</td><td><span class="badge-pill-${p.stock === 'disponible' ? 'green' : 'red'}">${p.stock}</span></td><td><button class="admin-btn admin-btn-sm" onclick="editProduct('${p.id}')" style="margin-right:6px;">✏️</button><button class="admin-btn admin-btn-sm admin-btn-danger" onclick="deleteProduct('${p.id}')">🗑️</button></td></tr>`).join(''); }
-    function renderAdminPedidos() { const el = document.getElementById('adminPedidosList'); if (!orders.length) { el.innerHTML = `<div style="text-align:center;padding:60px;color:var(--text-muted);"><div style="font-size:48px;">🛎️</div><p style="margin-top:12px;">Sin pedidos</p></div>`; return; } el.innerHTML = orders.map(o => `<div class="pedido-card"><div class="pedido-info"><h4>${o.name}</h4><p>📋 ${o.items} · 💰 $${Number(o.total).toLocaleString('es-AR')} · 🕐 ${o.date}</p></div><div class="pedido-meta"><select class="admin-select" onchange="updateOrderStatus('${o.id}',this.value)"><option value="pendiente" ${o.status === 'pendiente' ? 'selected' : ''}>⏳ Pendiente</option><option value="confirmado" ${o.status === 'confirmado' ? 'selected' : ''}>✅ Confirmado</option><option value="cancelado" ${o.status === 'cancelado' ? 'selected' : ''}>❌ Cancelado</option></select><button class="admin-btn admin-btn-sm admin-btn-danger" onclick="deleteOrder('${o.id}')">🗑️</button></div></div>`).join(''); }
-    function updateOrderStatus(id, status) { const o = orders.find(x => x.id === id); o.status = status; if (window._fbSaveOrder) window._fbSaveOrder(o); showToast('🔄 Pedido actualizado'); }
-    function deleteOrder(id) { if (!confirm('¿Eliminar?')) return; orders = orders.filter(o => o.id !== id); if (window._fbDeleteOrder) window._fbDeleteOrder(id); renderAdminPedidos(); updateStats(); }
-
-    let optionCount = 0;
-    function openProductModal(id = null) {
-      editingId = id; optionCount = 0; document.getElementById('optionsContainer').innerHTML = ''; document.getElementById('flavorPillsContainer').innerHTML = ''; document.getElementById('fFlavorInput').value = '';
-      if (id) { const p = products.find(x => x.id === id); document.getElementById('modalTitle').textContent = 'Editar'; document.getElementById('fName').value = p.name; document.getElementById('fEmoji').value = p.emoji; document.getElementById('fStock').value = p.stock; (p.flavors || []).forEach(f => addFlavorPill(f)); p.options.forEach(opt => addOptionField(opt.label, opt.price, opt.subtype)); }
-      else { document.getElementById('modalTitle').textContent = 'Agregar'; document.getElementById('fName').value = ''; document.getElementById('fEmoji').value = ''; document.getElementById('fStock').value = 'disponible'; addOptionField(); }
-      document.getElementById('productModal').classList.add('open');
-    }
-    function addFlavorPill(name) { const val = name || document.getElementById('fFlavorInput').value.trim(); if (!val) return; const pill = document.createElement('div'); pill.className = 'flavor-admin-pill'; pill.dataset.flavor = val; pill.innerHTML = `<span>${val}</span><button onclick="this.parentElement.remove()">✕</button>`; document.getElementById('flavorPillsContainer').appendChild(pill); if (!name) document.getElementById('fFlavorInput').value = ''; }
-    function addOptionField(label = '', price = '', subtype = '') { const i = optionCount++; const div = document.createElement('div'); div.style.cssText = 'display:grid;grid-template-columns:1fr 100px 100px 32px;gap:8px;margin-top:10px;align-items:center;'; div.innerHTML = `<input class="admin-search" style="border-radius:12px;width:100%;" placeholder="Cant." value="${label}" id="ol_${i}"><input class="admin-search" style="border-radius:12px;width:100%;" type="number" placeholder="Precio" value="${price}" id="op_${i}"><input class="admin-search" style="border-radius:12px;width:100%;" placeholder="Tipo" value="${subtype}" id="os_${i}"><button onclick="this.parentElement.remove()" style="background:var(--coral);color:white;border:none;width:32px;height:32px;border-radius:50%;cursor:pointer;">✕</button>`; document.getElementById('optionsContainer').appendChild(div); }
-    function saveProduct() {
-      const name = document.getElementById('fName').value.trim(); if (!name) return;
-      const options = []; document.getElementById('optionsContainer').querySelectorAll('div').forEach(row => { const label = row.querySelector(`[id^="ol_"]`)?.value.trim(); const price = parseFloat(row.querySelector(`[id^="op_"]`)?.value); const subtype = row.querySelector(`[id^="os_"]`)?.value.trim(); if (label && price) options.push({ label, price, ...(subtype ? { subtype } : {}) }); });
-      const flavors = [...document.querySelectorAll('#flavorPillsContainer .flavor-admin-pill')].map(el => el.dataset.flavor);
-      const data = { id: editingId || uid(), name, emoji: document.getElementById('fEmoji').value.trim() || '🥗', flavors, options, stock: document.getElementById('fStock').value };
-      if (window._fbSaveProduct) window._fbSaveProduct(data);
-      closeProductModal(); updateStats();
-    }
-    function editProduct(id) { openProductModal(id); }
-    function deleteProduct(id) { if (!confirm('¿Eliminar?')) return; if (window._fbDeleteProduct) window._fbDeleteProduct(id); }
-    function closeProductModal() { document.getElementById('productModal').classList.remove('open'); editingId = null; }
     function showToast(msg) { const t = document.getElementById('toast'); t.textContent = msg; t.classList.add('show'); setTimeout(() => t.classList.remove('show'), 3000); }
     function uid() { return Date.now().toString(36) + Math.random().toString(36).slice(2); }
-    document.getElementById('productModal').addEventListener('click', e => { if (e.target === document.getElementById('productModal')) closeProductModal(); });
-    document.getElementById('loginOverlay').addEventListener('click', e => { if (e.target === document.getElementById('loginOverlay')) closeLogin(); });
+
+    window.addEventListener('load', () => {
+      setTimeout(() => { const l = document.getElementById('loader'); l.style.opacity = '0'; setTimeout(() => l.style.display = 'none', 500); }, 800);
+      init();
+      setTimeout(() => {
+        document.querySelectorAll('.float-el.appear').forEach((el, i) => {
+          const delay = parseFloat(getComputedStyle(el).getPropertyValue('--delay')) || (i * 0.15);
+          setTimeout(() => { el.style.opacity = '1'; el.style.transform = 'translateY(0) scale(1)'; el.style.transition = 'opacity 0.8s ease,transform 0.8s ease'; setTimeout(() => { el.style.transition = ''; el.classList.add('floating'); }, 900); }, delay * 1000);
+        });
+      }, 900);
+    });
   </script>
 </body>
 
