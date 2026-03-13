@@ -6,10 +6,6 @@ A high-conversion landing page with a full shopping cart, WhatsApp order integra
 
 ---
 
-## Screenshot
-
-> *(Add a screenshot here — drag an image into this file on GitHub or use: `![screenshot](./screenshot.png)`)*
-
 ---
 
 ## What It Does
