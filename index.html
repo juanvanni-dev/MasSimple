@@ -28,6 +28,9 @@
       --shadow-lg: 0 20px 60px rgba(27, 61, 47, 0.18);
       --radius: 20px;
       --radius-sm: 12px;
+      /* Badge integral */
+      --wheat: #C8860A;
+      --wheat-bg: #FFF4DC;
     }
 
     * {
@@ -444,6 +447,7 @@
       transform: rotate(-10deg)
     }
 
+    /* ── BADGES SOBRE LA IMAGEN ── */
     .veg-badge {
       position: absolute;
       top: 12px;
@@ -455,6 +459,21 @@
       padding: 4px 10px;
       border-radius: 100px;
       letter-spacing: 0.06em
+    }
+
+    /* NUEVO: badge integral — color trigo, esquina derecha */
+    .integral-badge {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      background: var(--wheat-bg);
+      color: var(--wheat);
+      font-size: 11px;
+      font-weight: 800;
+      padding: 4px 10px;
+      border-radius: 100px;
+      letter-spacing: 0.06em;
+      border: 1.5px solid rgba(200, 134, 10, 0.25);
     }
 
     .product-body {
@@ -1173,8 +1192,6 @@
         style="bottom:18%;left:4%;width:80px;--delay:0.8s;--dur:8s;--dist:20px;">
       <img src="02 Elementos gráficos/1.Frutas y verduras/Recurso 7.png" class="float-el appear"
         style="bottom:10%;right:3%;width:70px;--delay:1.1s;--dur:6.5s;--dist:16px;">
-      <img src="02 Elementos gráficos/1.Frutas y verduras/Recurso 10.png" class="float-el appear"
-        style="top:50%;right:8%;width:85px;--delay:1.4s;--dur:7.5s;--dist:12px;">
       <img src="02 Elementos gráficos/1.Frutas y verduras/Recurso 13.png" class="float-el appear"
         style="top:30%;left:1%;width:65px;--delay:1.7s;--dur:9s;--dist:22px;">
       <img src="02 Elementos gráficos/2.Deco extra/Recurso 8.png" class="float-el appear"
@@ -1345,6 +1362,20 @@
 
     let products = [], cart = [];
 
+    // ══════════════════════════════════════════
+    //  Detecta si un producto es "integral"
+    //  Busca en el nombre o en cualquier opción
+    // ══════════════════════════════════════════
+    function esIntegral(p) {
+      const nameMatch = p.name?.toLowerCase().includes('integral');
+      const optMatch = (p.options || []).some(o =>
+        o.label?.toLowerCase().includes('integral') ||
+        o.subtype?.toLowerCase().includes('integral')
+      );
+      const flavorMatch = (p.flavors || []).some(f => f.toLowerCase().includes('integral'));
+      return nameMatch || optMatch || flavorMatch;
+    }
+
     async function init() {
       const { data } = await sb.from('productos').select('*').order('created_at', { ascending: true });
       products = data || [];
@@ -1365,27 +1396,39 @@
       }
       grid.innerHTML = avail.map((p, i) => {
         const hasFlavors = p.flavors && p.flavors.length > 1;
-        const imgHtml = p.foto_url ? `<img src="${p.foto_url}" class="prod-photo" alt="${p.name}" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">` : '';
+        const imgHtml = p.foto_url
+          ? `<img src="${p.foto_url}" class="prod-photo" alt="${p.name}" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">`
+          : '';
         const emojiHtml = `<div class="prod-emoji"${p.foto_url ? ' style="display:none;"' : ''}>${p.emoji || '🥗'}</div>`;
+
+        // ── Badge integral — aparece solo si corresponde ──
+        const integralBadge = esIntegral(p)
+          ? `<div class="integral-badge">🌾 Integral</div>`
+          : '';
+
         const optsHtml = (p.options || []).map((opt, oi) => `
-        <div class="option-row" onclick="${hasFlavors ? `addToCart('${p.id}',${oi},getFlav('${p.id}'))` : `addToCart('${p.id}',${oi},'')`}">
-          <span class="option-label">${opt.label}${opt.subtype ? `<span class="option-subtype">${opt.subtype}</span>` : ''}</span>
-          <div style="display:flex;align-items:center;gap:10px;">
-            <span class="option-price">$${Number(opt.price).toLocaleString('es-AR')}</span>
-            <button class="btn-add" onclick="event.stopPropagation();${hasFlavors ? `addToCart('${p.id}',${oi},getFlav('${p.id}'))` : `addToCart('${p.id}',${oi},'')`}">+</button>
-          </div>
-        </div>`).join('');
+          <div class="option-row" onclick="${hasFlavors ? `addToCart('${p.id}',${oi},getFlav('${p.id}'))` : `addToCart('${p.id}',${oi},'')`}">
+            <span class="option-label">${opt.label}${opt.subtype ? `<span class="option-subtype">${opt.subtype}</span>` : ''}</span>
+            <div style="display:flex;align-items:center;gap:10px;">
+              <span class="option-price">$${Number(opt.price).toLocaleString('es-AR')}</span>
+              <button class="btn-add" onclick="event.stopPropagation();${hasFlavors ? `addToCart('${p.id}',${oi},getFlav('${p.id}'))` : `addToCart('${p.id}',${oi},'')`}">+</button>
+            </div>
+          </div>`).join('');
+
         const flavorHtml = hasFlavors
           ? `<div class="flavor-step"><div class="step-label">1. Elegí el sabor</div><div class="flavor-pills" id="flavors-${p.id}">${p.flavors.map(f => `<button class="flavor-pill" onclick="selectFlavor('${p.id}',this)">${f}</button>`).join('')}</div></div><div class="flavor-step"><div class="step-label" id="step2-${p.id}" style="opacity:0.4;">2. Elegí la cantidad</div><div class="product-options" id="opts-${p.id}">${optsHtml}</div></div>`
           : `<div class="product-options visible" id="opts-${p.id}">${optsHtml}</div>`;
+
         return `<div class="product-card" style="animation-delay:${i * 0.07}s">
-        <div class="product-card-img">${imgHtml}${emojiHtml}
-          <img src="02 Elementos gráficos/2.Deco extra/Recurso ${20 + (i % 10)}.png" class="product-deco tr" onerror="this.style.display='none'">
-          <img src="02 Elementos gráficos/2.Deco extra/Recurso ${30 + (i % 8)}.png" class="product-deco bl" onerror="this.style.display='none'">
-          <div class="veg-badge">🌿 Vegetariano</div>
-        </div>
-        <div class="product-body"><div class="product-name">${p.name}</div>${flavorHtml}</div>
-      </div>`;
+          <div class="product-card-img">
+            ${imgHtml}${emojiHtml}
+            <img src="02 Elementos gráficos/2.Deco extra/Recurso ${20 + (i % 10)}.png" class="product-deco tr" onerror="this.style.display='none'">
+            <img src="02 Elementos gráficos/2.Deco extra/Recurso ${30 + (i % 8)}.png" class="product-deco bl" onerror="this.style.display='none'">
+            <div class="veg-badge">🌿 Vegetariano</div>
+            ${integralBadge}
+          </div>
+          <div class="product-body"><div class="product-name">${p.name}</div>${flavorHtml}</div>
+        </div>`;
       }).join('');
     }
 
