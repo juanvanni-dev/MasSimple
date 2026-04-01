@@ -1118,6 +1118,100 @@
       }
     }
 
+    /* ── CONFIRM DIALOG ── */
+    .confirm-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(27, 61, 47, 0.5);
+      backdrop-filter: blur(6px);
+      z-index: 9000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px
+    }
+
+    .confirm-overlay.open {
+      display: flex
+    }
+
+    .confirm-box {
+      background: white;
+      border-radius: 20px;
+      padding: 36px 32px;
+      max-width: 360px;
+      width: 100%;
+      text-align: center;
+      box-shadow: 0 20px 60px rgba(27, 61, 47, 0.2);
+      animation: slideUp 0.3s ease
+    }
+
+    .confirm-icon {
+      font-size: 40px;
+      margin-bottom: 12px
+    }
+
+    .confirm-title {
+      font-size: 18px;
+      font-weight: 800;
+      color: var(--green);
+      margin-bottom: 8px
+    }
+
+    .confirm-msg {
+      font-size: 14px;
+      color: var(--text-muted);
+      margin-bottom: 24px;
+      line-height: 1.5
+    }
+
+    .confirm-btns {
+      display: flex;
+      gap: 10px
+    }
+
+    .confirm-btns button {
+      flex: 1;
+      padding: 12px;
+      border-radius: 100px;
+      font-family: 'Nunito';
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      border: none;
+      transition: all 0.2s
+    }
+
+    .confirm-cancel {
+      background: var(--beige);
+      color: var(--text-mid)
+    }
+
+    .confirm-cancel:hover {
+      background: var(--border)
+    }
+
+    .confirm-ok {
+      background: var(--coral);
+      color: white
+    }
+
+    .confirm-ok:hover {
+      background: var(--coral-dark)
+    }
+
+    @keyframes slideUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px)
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0)
+      }
+    }
+
     @media(max-width:768px) {
       .nav-inner {
         padding: 0 20px
@@ -1316,6 +1410,19 @@
       @massimple.sf</a>
   </footer>
 
+  <!-- CONFIRM DIALOG -->
+  <div class="confirm-overlay" id="confirmOverlay">
+    <div class="confirm-box">
+      <div class="confirm-icon" id="confirmIcon">🗑️</div>
+      <div class="confirm-title" id="confirmTitle"></div>
+      <div class="confirm-msg" id="confirmMsg"></div>
+      <div class="confirm-btns">
+        <button class="confirm-cancel" onclick="closeConfirm()">Cancelar</button>
+        <button class="confirm-ok" id="confirmOkBtn">Confirmar</button>
+      </div>
+    </div>
+  </div>
+
   <!-- CARRITO -->
   <div class="cart-overlay" id="cartOverlay" onclick="if(event.target===this)closeCart()">
     <div class="cart-panel">
@@ -1361,10 +1468,12 @@
     );
 
     let products = [], cart = [];
+    let _confirmCallback = null;
+    let _checkoutBusy = false;
 
     // ══════════════════════════════════════════
     //  Detecta si un producto es "integral"
-    //  Busca en el nombre o en cualquier opción
+    //  Busca en el nombre, opciones o sabores
     // ══════════════════════════════════════════
     function esIntegral(p) {
       const nameMatch = p.name?.toLowerCase().includes('integral');
@@ -1376,17 +1485,40 @@
       return nameMatch || optMatch || flavorMatch;
     }
 
+    // ══════════════════════════════════════════
+    //  INIT — con manejo de error real
+    // ══════════════════════════════════════════
     async function init() {
-      const { data } = await sb.from('productos').select('*').order('created_at', { ascending: true });
-      products = data || [];
-      renderPublic();
-      sb.channel('pub').on('postgres_changes', { event: '*', schema: 'public', table: 'productos' }, async () => {
-        const { data } = await sb.from('productos').select('*').order('created_at', { ascending: true });
+      try {
+        const { data, error } = await sb.from('productos').select('*').order('created_at', { ascending: true });
+        if (error) throw error;
         products = data || [];
         renderPublic();
-      }).subscribe();
+
+        sb.channel('pub')
+          .on('postgres_changes', { event: '*', schema: 'public', table: 'productos' }, async () => {
+            try {
+              const { data, error } = await sb.from('productos').select('*').order('created_at', { ascending: true });
+              if (error) throw error;
+              products = data || [];
+              renderPublic();
+            } catch (e) { console.error('Realtime error:', e); }
+          })
+          .subscribe();
+      } catch (err) {
+        console.error('init error:', err);
+        const grid = document.getElementById('publicProductsGrid');
+        grid.innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:60px;color:var(--text-muted);">
+          <div style="font-size:48px;">😕</div>
+          <p style="margin-top:12px;font-weight:600;">No pudimos cargar los productos.</p>
+          <p style="margin-top:8px;font-size:13px;">Revisá tu conexión e intentá recargar la página.</p>
+        </div>`;
+      }
     }
 
+    // ══════════════════════════════════════════
+    //  RENDER PRODUCTOS
+    // ══════════════════════════════════════════
     function renderPublic() {
       const grid = document.getElementById('publicProductsGrid');
       const avail = products.filter(p => p.stock === 'disponible');
@@ -1397,11 +1529,10 @@
       grid.innerHTML = avail.map((p, i) => {
         const hasFlavors = p.flavors && p.flavors.length > 1;
         const imgHtml = p.foto_url
-          ? `<img src="${p.foto_url}" class="prod-photo" alt="${p.name}" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">`
+          ? `<img src="${p.foto_url}" class="prod-photo" alt="${p.name}" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">`
           : '';
         const emojiHtml = `<div class="prod-emoji"${p.foto_url ? ' style="display:none;"' : ''}>${p.emoji || '🥗'}</div>`;
 
-        // ── Badge integral — aparece solo si corresponde ──
         const integralBadge = esIntegral(p)
           ? `<div class="integral-badge">🌾 Integral</div>`
           : '';
@@ -1422,8 +1553,8 @@
         return `<div class="product-card" style="animation-delay:${i * 0.07}s">
           <div class="product-card-img">
             ${imgHtml}${emojiHtml}
-            <img src="02 Elementos gráficos/2.Deco extra/Recurso ${20 + (i % 10)}.png" class="product-deco tr" onerror="this.style.display='none'">
-            <img src="02 Elementos gráficos/2.Deco extra/Recurso ${30 + (i % 8)}.png" class="product-deco bl" onerror="this.style.display='none'">
+            <img src="02 Elementos gráficos/2.Deco extra/Recurso ${20 + (i % 10)}.png" class="product-deco tr" loading="lazy" onerror="this.style.display='none'">
+            <img src="02 Elementos gráficos/2.Deco extra/Recurso ${30 + (i % 8)}.png" class="product-deco bl" loading="lazy" onerror="this.style.display='none'">
             <div class="veg-badge">🌿 Vegetariano</div>
             ${integralBadge}
           </div>
@@ -1440,6 +1571,9 @@
     }
     function getFlav(pid) { const s = document.querySelector(`#flavors-${pid} .flavor-pill.selected`); return s ? s.textContent.trim() : ''; }
 
+    // ══════════════════════════════════════════
+    //  CARRITO
+    // ══════════════════════════════════════════
     function addToCart(pid, oi, flavor) {
       const p = products.find(x => x.id === pid);
       if (p.flavors && p.flavors.length > 1 && !flavor) { showToast('⚠️ Primero elegí el sabor'); return; }
@@ -1451,7 +1585,14 @@
       const cc = document.getElementById('cartCount'); cc.classList.remove('bump'); void cc.offsetWidth; cc.classList.add('bump');
     }
     function removeFromCart(key) { cart = cart.filter(i => i.key !== key); updateCartUI(); }
-    function clearCart() { if (!confirm('¿Vaciar el carrito?')) return; cart = []; updateCartUI(); }
+
+    function clearCart() {
+      if (!cart.length) return;
+      showConfirm('¿Vaciar el carrito?', 'Se van a eliminar todos los productos agregados.', '🗑️', () => {
+        cart = [];
+        updateCartUI();
+      }, 'Vaciar');
+    }
 
     function validateCheckoutButtons() {
       const ok = document.getElementById('orderClientName').value.trim().length >= 3 && cart.length > 0;
@@ -1463,30 +1604,81 @@
       const total = cart.reduce((s, i) => s + i.price * i.qty, 0);
       document.getElementById('cartCount').textContent = cart.reduce((s, i) => s + i.qty, 0);
       const itemsEl = document.getElementById('cartItems'), footerEl = document.getElementById('cartFooter');
-      if (!cart.length) { itemsEl.innerHTML = `<div class="cart-empty"><div class="empty-icon">🛒</div><p>Tu carrito está vacío.</p></div>`; footerEl.style.display = 'none'; return; }
+      if (!cart.length) {
+        itemsEl.innerHTML = `<div class="cart-empty"><div class="empty-icon">🛒</div><p>Tu carrito está vacío.</p></div>`;
+        footerEl.style.display = 'none'; return;
+      }
       itemsEl.innerHTML = cart.map(item => `<div class="cart-item"><div class="cart-item-icon">${item.emoji}</div><div class="cart-item-info"><div class="cart-item-name">${item.name}${item.flavor ? ` — ${item.flavor}` : ''}</div><div class="cart-item-detail">${item.label} × ${item.qty}</div></div><div class="cart-item-price">$${(item.price * item.qty).toLocaleString('es-AR')}</div><button class="btn-remove" onclick="removeFromCart('${item.key}')">✕</button></div>`).join('');
       footerEl.style.display = 'block';
       document.getElementById('cartTotal').textContent = '$' + total.toLocaleString('es-AR');
       validateCheckoutButtons();
     }
 
+    // ══════════════════════════════════════════
+    //  CHECKOUT — protegido contra doble click
+    // ══════════════════════════════════════════
     window.registrarPedido = async function (vendedora) {
       const cliente = document.getElementById('orderClientName').value.trim();
-      if (!cart.length || cliente.length < 3) return;
-      const total = cart.reduce((s, i) => s + i.price * i.qty, 0);
-      await sb.from('pedidos').insert({
-        id: uid(), name: cliente,
-        items: cart.map(i => `${i.qty}x ${i.name}${i.flavor ? ` (${i.flavor})` : ''}`).join(', '),
-        items_json: cart.map(i => ({ name: i.name, flavor: i.flavor, label: i.label, qty: i.qty, price: i.price })),
-        total, status: 'pendiente', date: new Date().toLocaleString('es-AR'), timestamp: Date.now(), vendedora
-      });
-      let msg = `¡Hola Más Simple! 👋 Soy *${cliente}*. Quiero hacer este pedido:%0A%0A`;
-      cart.forEach(item => { msg += `• ${item.name}${item.flavor ? ` (${item.flavor})` : ''} — ${item.label} x${item.qty} = $${(item.price * item.qty).toLocaleString('es-AR')}%0A`; });
-      msg += `%0A*TOTAL: $${total.toLocaleString('es-AR')}*%0AGracias! 🥦`;
-      const num = vendedora === 'Camila' ? '5493425425527' : '5493425410363';
+      if (!cart.length || cliente.length < 3 || _checkoutBusy) return;
+
+      _checkoutBusy = true;
       const btnId = vendedora === 'Camila' ? 'btnCheckoutCamila' : 'btnCheckoutMayra';
-      document.getElementById(btnId).href = `https://wa.me/${num}?text=${msg}`;
+      const btn = document.getElementById(btnId);
+      const originalText = btn.innerHTML;
+      btn.innerHTML = `<span style="opacity:0.7">Procesando...</span>`;
+      btn.style.pointerEvents = 'none';
+
+      try {
+        const total = cart.reduce((s, i) => s + i.price * i.qty, 0);
+        const { error } = await sb.from('pedidos').insert({
+          id: uid(), name: cliente,
+          items: cart.map(i => `${i.qty}x ${i.name}${i.flavor ? ` (${i.flavor})` : ''}`).join(', '),
+          items_json: cart.map(i => ({ name: i.name, flavor: i.flavor, label: i.label, qty: i.qty, price: i.price })),
+          total, status: 'pendiente', date: new Date().toLocaleString('es-AR'), timestamp: Date.now(), vendedora
+        });
+        if (error) throw error;
+
+        let msg = `¡Hola Más Simple! 👋 Soy *${cliente}*. Quiero hacer este pedido:%0A%0A`;
+        cart.forEach(item => { msg += `• ${item.name}${item.flavor ? ` (${item.flavor})` : ''} — ${item.label} x${item.qty} = $${(item.price * item.qty).toLocaleString('es-AR')}%0A`; });
+        msg += `%0A*TOTAL: $${total.toLocaleString('es-AR')}*%0AGracias! 🥦`;
+        const num = vendedora === 'Camila' ? '5493425425527' : '5493425410363';
+        btn.href = `https://wa.me/${num}?text=${msg}`;
+      } catch (err) {
+        console.error('registrarPedido:', err);
+        showToast('❌ Hubo un error al registrar el pedido. Intentá de nuevo.');
+        btn.innerHTML = originalText;
+        btn.style.pointerEvents = '';
+        _checkoutBusy = false;
+        return;
+      }
+
+      btn.innerHTML = originalText;
+      btn.style.pointerEvents = '';
+      _checkoutBusy = false;
     };
+
+    // ══════════════════════════════════════════
+    //  CONFIRM DIALOG
+    // ══════════════════════════════════════════
+    function showConfirm(title, msg, icon, callback, okLabel = 'Confirmar') {
+      document.getElementById('confirmTitle').innerText = title;
+      document.getElementById('confirmMsg').innerText = msg;
+      document.getElementById('confirmIcon').innerText = icon;
+      document.getElementById('confirmOkBtn').innerText = okLabel;
+      _confirmCallback = callback;
+      document.getElementById('confirmOverlay').classList.add('open');
+      setTimeout(() => document.getElementById('confirmOkBtn').focus(), 100);
+    }
+    function closeConfirm() {
+      document.getElementById('confirmOverlay').classList.remove('open');
+      _confirmCallback = null;
+    }
+    document.addEventListener('DOMContentLoaded', () => {
+      document.getElementById('confirmOkBtn').addEventListener('click', () => {
+        const cb = _confirmCallback; closeConfirm(); if (cb) cb();
+      });
+    });
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeConfirm(); });
 
     function openCart() { document.getElementById('cartOverlay').classList.add('open'); updateCartUI(); }
     function closeCart() { document.getElementById('cartOverlay').classList.remove('open'); }

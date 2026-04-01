@@ -1108,6 +1108,115 @@
       background: #E9A945
     }
 
+    /* ── SELECTOR DE PERÍODO ── */
+    .period-bar {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 20px;
+      flex-wrap: wrap
+    }
+
+    .period-bar span {
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      color: var(--text-muted);
+      margin-right: 4px
+    }
+
+    .period-pill {
+      padding: 6px 16px;
+      border-radius: 100px;
+      border: 1.5px solid var(--border);
+      background: white;
+      font-family: 'Nunito';
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-mid);
+      cursor: pointer;
+      transition: all .18s
+    }
+
+    .period-pill:hover {
+      border-color: var(--green);
+      color: var(--green)
+    }
+
+    .period-pill.active {
+      background: var(--green);
+      color: white;
+      border-color: var(--green)
+    }
+
+    /* ── BADGE INTEGRAL EN ADMIN ── */
+    .badge-integral {
+      display: inline-block;
+      background: #FFF4DC;
+      color: #C8860A;
+      font-size: 10px;
+      font-weight: 800;
+      padding: 2px 8px;
+      border-radius: 100px;
+      border: 1.5px solid rgba(200, 134, 10, .25);
+      margin-left: 6px;
+      vertical-align: middle;
+      letter-spacing: .04em
+    }
+
+    /* ── ITEMS EXPANDIBLES EN PEDIDOS ── */
+    .items-toggle {
+      background: none;
+      border: none;
+      color: var(--coral);
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+      padding: 0;
+      font-family: 'Nunito';
+      text-decoration: underline;
+      text-underline-offset: 2px
+    }
+
+    .items-detail {
+      display: none;
+      margin-top: 8px;
+      background: var(--beige-light);
+      border-radius: var(--radius-sm);
+      padding: 10px 14px;
+      font-size: 13px;
+      line-height: 1.7
+    }
+
+    .items-detail.open {
+      display: block
+    }
+
+    .items-detail-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      padding: 3px 0;
+      border-bottom: 1px solid var(--border)
+    }
+
+    .items-detail-row:last-child {
+      border-bottom: none
+    }
+
+    .items-detail-row span:first-child {
+      color: var(--text-mid);
+      font-weight: 600
+    }
+
+    .items-detail-row span:last-child {
+      font-weight: 800;
+      color: var(--green);
+      flex-shrink: 0
+    }
+
     /* SIDEBAR OVERLAY */
     .sidebar-overlay {
       display: none;
@@ -1415,6 +1524,13 @@
 
         <!-- DASHBOARD -->
         <div class="sec active" id="sec-dashboard">
+          <div class="period-bar">
+            <span>Período:</span>
+            <button class="period-pill" onclick="setPeriod('hoy',this)">Hoy</button>
+            <button class="period-pill" onclick="setPeriod('semana',this)">Esta semana</button>
+            <button class="period-pill" onclick="setPeriod('mes',this)">Este mes</button>
+            <button class="period-pill active" onclick="setPeriod('todo',this)">Todo</button>
+          </div>
           <div class="stats-grid" id="statsGrid">
             <div class="skeleton skel-stat"></div>
             <div class="skeleton skel-stat"></div>
@@ -1508,6 +1624,8 @@
             </div>
             <div id="adminPedidosList">
               <div class="skeleton skel-row"></div>
+              <div class="skeleton skel-row" style="margin-top:8px;opacity:.6"></div>
+              <div class="skeleton skel-row" style="margin-top:8px;opacity:.4"></div>
             </div>
           </div>
         </div>
@@ -1613,6 +1731,7 @@
     window.productosDB = [];
     window.pedidosDB = [];
     let filtroActivo = 'todos';
+    let periodoActivo = 'todo';
     let currentEditId = null, tempFlavors = [], tempOptions = [], editingFotoUrl = null;
     let _confirmCallback = null, _toastTimer = null;
 
@@ -1772,17 +1891,38 @@
     }
 
     // ══════════════════════════════════════════════════════
+    //  PERÍODO
+    // ══════════════════════════════════════════════════════
+    function setPeriod(periodo, btn) {
+      periodoActivo = periodo;
+      document.querySelectorAll('.period-pill').forEach(p => p.classList.remove('active'));
+      btn.classList.add('active');
+      renderStats(); renderDashPedidos(); renderRanking(); renderVendedoras();
+    }
+
+    function pedidosByPeriod() {
+      const peds = window.pedidosDB || [];
+      if (periodoActivo === 'todo') return peds;
+      const now = Date.now();
+      const limits = { hoy: 86400000, semana: 604800000, mes: 2592000000 };
+      const limit = limits[periodoActivo] || Infinity;
+      return peds.filter(o => (now - Number(o.timestamp || 0)) <= limit);
+    }
+
+    // ══════════════════════════════════════════════════════
     //  STATS
     // ══════════════════════════════════════════════════════
     function renderStats() {
-      const prods = window.productosDB || [], peds = window.pedidosDB || [];
+      const prods = window.productosDB || [];
+      const peds = pedidosByPeriod();
       const conf = peds.filter(o => o.status === 'confirmado');
       const totalV = conf.reduce((s, o) => s + Number(o.total || 0), 0);
+      const periodoLabel = { hoy: 'hoy', semana: 'esta semana', mes: 'este mes', todo: 'en total' }[periodoActivo];
       document.getElementById('statsGrid').innerHTML = `
     <div class="stat-card green"><div class="stat-label">Productos</div><div class="stat-value">${prods.length}</div><div class="stat-sub">en el menú</div></div>
     <div class="stat-card blue"><div class="stat-label">Con Stock</div><div class="stat-value">${prods.filter(p => p.stock === 'disponible').length}</div><div class="stat-sub">disponibles</div></div>
     <div class="stat-card coral"><div class="stat-label">Sin Stock</div><div class="stat-value">${prods.filter(p => p.stock === 'agotado').length}</div><div class="stat-sub">a reponer</div></div>
-    <div class="stat-card gold"><div class="stat-label">Ventas</div><div class="stat-value">$${totalV.toLocaleString('es-AR')}</div><div class="stat-sub">${conf.length} pedido${conf.length !== 1 ? 's' : ''}</div></div>`;
+    <div class="stat-card gold"><div class="stat-label">Ventas</div><div class="stat-value">$${totalV.toLocaleString('es-AR')}</div><div class="stat-sub">${conf.length} pedido${conf.length !== 1 ? 's' : ''} ${periodoLabel}</div></div>`;
     }
 
     function actualizarBadge() {
@@ -1797,7 +1937,7 @@
     function renderRanking() {
       const el = document.getElementById('dash-ranking'); if (!el) return;
       const counts = {};
-      (window.pedidosDB || []).forEach(o => {
+      pedidosByPeriod().forEach(o => {
         if (Array.isArray(o.items_json)) o.items_json.forEach(i => { counts[i.name] = (counts[i.name] || 0) + (i.qty || 1); });
         else if (o.items) for (const m of (o.items.matchAll(/(\d+)x\s+([^,]+)/g))) { const n = m[2].trim().split(' (')[0]; counts[n] = (counts[n] || 0) + parseInt(m[1]); }
       });
@@ -1816,7 +1956,7 @@
     function renderVendedoras() {
       const el = document.getElementById('dash-vendedoras'); if (!el) return;
       const v = { Camila: { total: 0, pedidos: 0 }, Mayra: { total: 0, pedidos: 0 } };
-      (window.pedidosDB || []).forEach(o => {
+      pedidosByPeriod().forEach(o => {
         const vend = o.vendedora || (o.name?.includes('Camila') ? 'Camila' : 'Mayra');
         if (v[vend]) { v[vend].total += Number(o.total || 0); v[vend].pedidos++; }
       });
@@ -1841,7 +1981,7 @@
     // ══════════════════════════════════════════════════════
     function renderDashPedidos() {
       const el = document.getElementById('dash-pedidos');
-      const peds = (window.pedidosDB || []).slice(0, 5);
+      const peds = pedidosByPeriod().slice(0, 5);
       if (!peds.length) { el.innerHTML = '<div class="no-results"><div class="icon">📭</div><p>Sin pedidos todavía</p></div>'; return; }
       el.innerHTML = peds.map(o => {
         const cls = o.status === 'confirmado' ? 'badge-green' : o.status === 'cancelado' ? 'badge-red' : 'badge-yellow';
@@ -1854,6 +1994,16 @@
       </div>
     </div>`;
       }).join('');
+    }
+
+    // ══════════════════════════════════════════════════════
+    //  HELPER: detecta si un producto es integral
+    // ══════════════════════════════════════════════════════
+    function esIntegral(p) {
+      const nameMatch = p.name?.toLowerCase().includes('integral');
+      const optMatch = (p.options || []).some(o => o.label?.toLowerCase().includes('integral') || o.subtype?.toLowerCase().includes('integral'));
+      const flavorMatch = (p.flavors || []).some(f => f.toLowerCase().includes('integral'));
+      return nameMatch || optMatch || flavorMatch;
     }
 
     // ══════════════════════════════════════════════════════
@@ -1883,7 +2033,7 @@
         ${thumb}
         <div style="flex:1;min-width:0;">
           <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap;margin-bottom:4px;">
-            <span style="font-weight:800;font-size:15px;color:var(--green);">${san(p.name)}</span>
+            <span style="font-weight:800;font-size:15px;color:var(--green);">${san(p.name)}${esIntegral(p) ? '<span class="badge-integral">🌾 Integral</span>' : ''}</span>
             ${stockBadge}
           </div>
           ${sabores ? `<div style="font-size:12px;color:var(--text-muted);margin-bottom:6px;">🌿 ${sabores}</div>` : ''}
@@ -1913,7 +2063,7 @@
           const stock = p.stock === 'disponible' ? '<span class="badge badge-green">✅ Disponible</span>' : '<span class="badge badge-red">❌ Agotado</span>';
           return `<tr>
         <td>${thumb}</td>
-        <td><div class="prod-name">${san(p.name)}</div></td>
+        <td><div class="prod-name">${san(p.name)}${esIntegral(p) ? '<span class="badge-integral">🌾 Integral</span>' : ''}</div></td>
         <td style="font-size:13px;color:var(--text-muted);">${sabores}</td>
         <td style="font-size:13px;">${opciones}</td>
         <td>${stock}</td>
@@ -1958,11 +2108,28 @@
         const cls = o.status === 'confirmado' ? 'badge-green' : o.status === 'cancelado' ? 'badge-red' : 'badge-yellow';
         let cn = san(o.name || ''), vend = san(o.vendedora || '');
         if (!vend) { const m = cn.match(/^(.+?)\s*\(A\s+(.+?)\)$/); if (m) { cn = m[1].trim(); vend = m[2].trim(); } }
-        return `<div class="pedido-card">
+
+        // Items expandibles: preferimos items_json si está disponible
+        let itemsResumen = san(o.items || '');
+        let itemsDetalleHtml = '';
+        if (Array.isArray(o.items_json) && o.items_json.length) {
+          const rows = o.items_json.map(i =>
+            `<div class="items-detail-row">
+              <span>${san(i.qty || 1)}× ${san(i.name || '')}${i.flavor ? ` <em style="color:var(--text-muted);font-weight:400;">(${san(i.flavor)})</em>` : ''}${i.label ? ` — ${san(i.label)}` : ''}</span>
+              <span>$${Number((i.price || 0) * (i.qty || 1)).toLocaleString('es-AR')}</span>
+            </div>`
+          ).join('');
+          itemsDetalleHtml = `
+            <button class="items-toggle" onclick="toggleItems('${san(o.id)}')">Ver detalle ▾</button>
+            <div class="items-detail" id="items-${san(o.id)}">${rows}</div>`;
+        }
+
+        return `<div class="pedido-card" id="pedido-card-${san(o.id)}">
       <div class="pedido-info" style="min-width:0;flex:1;">
         <h4>👤 ${cn} <span class="badge ${cls}">${san(o.status)}</span>${vend ? `<span style="font-size:11px;font-weight:600;color:var(--text-muted);margin-left:8px;">📲 vía ${vend}</span>` : ''}</h4>
         <p>💰 <strong>$${Number(o.total || 0).toLocaleString('es-AR')}</strong> &nbsp;·&nbsp; 📅 ${san(o.date || '')}</p>
-        <p class="items-text" title="${san(o.items || '')}">📋 ${san(o.items || '')}</p>
+        <p class="items-text" title="${san(o.items || '')}">📋 ${itemsResumen}</p>
+        ${itemsDetalleHtml}
       </div>
       <div class="pedido-actions">
         <select class="status-select" onchange="cambiarEstado('${san(o.id)}',this.value)" aria-label="Estado del pedido">
@@ -1970,11 +2137,19 @@
           <option value="confirmado" ${o.status === 'confirmado' ? 'selected' : ''}>✅ Confirmado</option>
           <option value="cancelado" ${o.status === 'cancelado' ? 'selected' : ''}>❌ Cancelado</option>
         </select>
-        <button class="btn btn-danger btn-sm" onclick="confirmarBorrarPedido('${san(o.id)}')" aria-label="Eliminar pedido">🗑️</button>
+        <button class="btn btn-danger btn-sm" id="del-btn-${san(o.id)}" onclick="confirmarBorrarPedido('${san(o.id)}')" aria-label="Eliminar pedido">🗑️</button>
       </div>
     </div>`;
       }).join('');
     }
+
+    window.toggleItems = function (id) {
+      const detail = document.getElementById('items-' + id);
+      const btn = detail?.previousElementSibling;
+      if (!detail) return;
+      detail.classList.toggle('open');
+      if (btn) btn.textContent = detail.classList.contains('open') ? 'Ocultar detalle ▴' : 'Ver detalle ▾';
+    };
 
     // Optimistic update al cambiar estado
     window.cambiarEstado = async function (id, status) {
@@ -1995,9 +2170,18 @@
 
     function confirmarBorrarPedido(id) {
       showConfirm('¿Eliminar este pedido?', 'Esta acción no se puede deshacer.', '🗑️', async () => {
+        const btn = document.getElementById('del-btn-' + id);
+        const card = document.getElementById('pedido-card-' + id);
+        if (btn) { btn.disabled = true; btn.textContent = '...'; }
         const { error } = await sb.from('pedidos').delete().eq('id', id);
-        if (error) { showToast('Error al eliminar', 'error'); console.error(error); }
-        else showToast('Pedido eliminado', 'success');
+        if (error) {
+          showToast('Error al eliminar', 'error');
+          if (btn) { btn.disabled = false; btn.textContent = '🗑️'; }
+          console.error(error);
+        } else {
+          if (card) { card.style.transition = 'opacity .3s, transform .3s'; card.style.opacity = '0'; card.style.transform = 'translateX(20px)'; }
+          showToast('Pedido eliminado', 'success');
+        }
       });
     }
     function confirmarBorrarProd(id) {
