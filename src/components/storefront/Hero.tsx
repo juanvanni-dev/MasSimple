@@ -1,6 +1,14 @@
 export default function Hero() {
   return (
     <section className="min-h-[85vh] sm:min-h-screen flex items-center px-4 sm:px-5 md:px-12 pt-[80px] sm:pt-[100px] pb-10 sm:pb-[60px] relative overflow-hidden">
+
+      {/* Verduras flotantes decorativas */}
+ <div className="absolute right-[5%] top-[15%] text-[80px] sm:text-[120px] opacity-50 select-none pointer-events-none" style={{ animation: 'float 6s ease-in-out infinite' }}>🥦</div>
+<div className="absolute right-[20%] top-[55%] text-[50px] sm:text-[70px] opacity-45 select-none pointer-events-none" style={{ animation: 'float 8s ease-in-out infinite 1s' }}>🫑</div>
+<div className="absolute right-[8%] bottom-[15%] text-[60px] sm:text-[90px] opacity-45 select-none pointer-events-none" style={{ animation: 'float 7s ease-in-out infinite 2s' }}>🥕</div>
+<div className="absolute right-[35%] top-[20%] text-[40px] sm:text-[55px] opacity-30 select-none pointer-events-none" style={{ animation: 'float 9s ease-in-out infinite 0.5s' }}>🌿</div>
+
+
       <div className="relative z-10 max-w-[620px]">
         <div className="inline-flex items-center gap-2 bg-green-light text-green text-[12px] sm:text-[13px] font-bold tracking-wider px-3.5 sm:px-[18px] py-1.5 sm:py-2 rounded-full mb-5 sm:mb-7 animate-fade-up">
           🌿 Comida congelada saludable
@@ -27,6 +35,15 @@ export default function Hero() {
           ))}
         </div>
       </div>
+
+      {/* Keyframes para la animación float */}
+      <style>{`
+        @keyframes float {
+          0%, 100% { transform: translateY(0px) rotate(0deg); }
+          50% { transform: translateY(-20px) rotate(5deg); }
+        }
+      `}</style>
+
     </section>
   );
 }
