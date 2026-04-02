@@ -1,9 +1,15 @@
 import { useState, useEffect } from 'react';
 import { createClient } from '@supabase/supabase-js';
 
-// Tus datos de conexión (No los toqué)
-const supabaseUrl = 'https://zahlthwktowwbozbhvxd.supabase.co';
-const supabaseKey = 'sb_publishable_b5bqQfQaZ7I8ecfe7-c2UA_X0Wja5eU';
+// Usamos las variables de entorno para que Vercel le pase las llaves reales
+const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
+const supabaseKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
+
+// Si falta alguna, te lo avisa en la consola del navegador (F12)
+if (!supabaseUrl || !supabaseKey) {
+  console.error("❌ ERROR: No se encontraron las llaves VITE_SUPABASE en el entorno.");
+}
+
 const supabase = createClient(supabaseUrl, supabaseKey);
 
 export function useProducts() {
@@ -14,18 +20,14 @@ export function useProducts() {
   const fetchProducts = async () => {
     try {
       const { data, error } = await supabase
-        .from('productos') // 1. Cambiado a 'productos' (español)
+        .from('productos') 
         .select('*');
-        // Saqué el .eq('activo') porque en tu foto no se veía esa columna
         
       if (error) throw error;
 
-      // 2. Traductor: Convertimos tus datos de Supabase al formato que espera la web
       const mappedData = (data || []).map(item => ({
         ...item,
-        // Sacamos el precio de adentro de 'options' (que es 4000 o 3000 según tu foto)
         price: item.options?.[0]?.price || 0,
-        // Si no tenés URL de foto, usamos el emoji que pusiste en la tabla
         image: item.foto_url || item.emoji || "https://via.placeholder.com/150",
         description: item.stock || "Disponible"
       }));
@@ -43,7 +45,6 @@ export function useProducts() {
   useEffect(() => {
     fetchProducts();
 
-    // Suscripción al tiempo real (también en la tabla 'productos')
     const channel = supabase
       .channel('products-realtime')
       .on('postgres_changes', { event: '*', schema: 'public', table: 'productos' }, () => {
