@@ -386,162 +386,186 @@
       margin-top: 12px
     }
 
-    .products-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-      gap: 24px;
-      max-width: 1200px;
-      margin: 0 auto
+    /* ══════════════════════════════════════════
+       SECCIÓN PRODUCTOS — LAYOUT AGRUPADO
+    ══════════════════════════════════════════ */
+
+    .products-container {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 52px
     }
 
-    .product-card {
-      background: white;
-      border-radius: var(--radius);
-      overflow: hidden;
-      box-shadow: var(--shadow-sm);
-      transition: transform 0.3s, box-shadow 0.3s;
+    /* Grupo por producto (ej: "Tartitas") */
+    .product-group {
       animation: fadeUp 0.5s ease both
     }
 
-    .product-card:hover {
-      transform: translateY(-6px);
-      box-shadow: var(--shadow)
+    .product-group-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(22px, 3vw, 32px);
+      font-style: italic;
+      color: var(--green);
+      font-weight: 400;
+      margin-bottom: 20px;
+      padding-bottom: 12px;
+      border-bottom: 2px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: 10px
     }
 
-    .product-card-img {
-      height: 200px;
+    .product-group-title .group-emoji {
+      font-style: normal;
+      font-size: 28px
+    }
+
+    /* Grid de cards de sabor */
+    .flavor-gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+      gap: 14px
+    }
+
+    /* Card individual de sabor */
+    .flavor-item {
+      background: white;
+      border-radius: var(--radius);
+      overflow: hidden;
+      border: 2.5px solid transparent;
+      box-shadow: var(--shadow-sm);
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+      position: relative
+    }
+
+    .flavor-item:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow);
+      border-color: rgba(241, 91, 91, 0.3)
+    }
+
+    .flavor-item.selected {
+      border-color: var(--coral);
+      box-shadow: 0 0 0 3px rgba(241, 91, 91, 0.15)
+    }
+
+    .flavor-item-img {
+      width: 100%;
+      aspect-ratio: 1 / 1;
       background: var(--beige);
       display: flex;
       align-items: center;
       justify-content: center;
-      position: relative;
-      overflow: hidden
+      overflow: hidden;
+      font-size: 52px;
+      position: relative
     }
 
-    .product-card-img img.prod-photo {
+    .flavor-item-img img {
       width: 100%;
       height: 100%;
-      object-fit: cover
+      object-fit: cover;
+      display: block
     }
 
-    .prod-emoji {
-      font-size: 72px;
-      filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.1))
-    }
-
-    .product-deco {
-      position: absolute;
-      width: 60px;
-      opacity: 0.3
-    }
-
-    .product-deco.tr {
-      top: 10px;
-      right: 10px;
-      transform: rotate(15deg)
-    }
-
-    .product-deco.bl {
-      bottom: 8px;
-      left: 8px;
-      transform: rotate(-10deg)
-    }
-
-    /* ── BADGES SOBRE LA IMAGEN ── */
-    .veg-badge {
-      position: absolute;
-      top: 12px;
-      left: 12px;
-      background: var(--green);
-      color: white;
-      font-size: 11px;
+    .flavor-item-label {
+      padding: 10px 10px 12px;
+      font-size: 13px;
       font-weight: 700;
-      padding: 4px 10px;
-      border-radius: 100px;
-      letter-spacing: 0.06em
+      color: var(--green);
+      text-align: center;
+      line-height: 1.3
     }
 
-    /* NUEVO: badge integral — color trigo, esquina derecha */
-    .integral-badge {
+    /* Badge integral sobre la card */
+    .flavor-item .integral-badge {
       position: absolute;
-      top: 12px;
-      right: 12px;
+      top: 7px;
+      right: 7px;
       background: var(--wheat-bg);
       color: var(--wheat);
-      font-size: 11px;
+      font-size: 9px;
       font-weight: 800;
-      padding: 4px 10px;
+      padding: 3px 7px;
       border-radius: 100px;
-      letter-spacing: 0.06em;
-      border: 1.5px solid rgba(200, 134, 10, 0.25);
+      border: 1.5px solid rgba(200, 134, 10, .25);
+      letter-spacing: .04em;
+      z-index: 2
     }
 
-    .product-body {
-      padding: 24px
+    /* Badge veg sobre la card */
+    .flavor-item .veg-badge {
+      position: absolute;
+      top: 7px;
+      left: 7px;
+      background: var(--green);
+      color: white;
+      font-size: 9px;
+      font-weight: 700;
+      padding: 3px 7px;
+      border-radius: 100px;
+      z-index: 2
     }
 
-    .product-name {
-      font-size: 20px;
+    /* Check de seleccionado */
+    .flavor-item.selected::after {
+      content: '✓';
+      position: absolute;
+      bottom: 42px;
+      right: 8px;
+      background: var(--coral);
+      color: white;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      font-size: 12px;
       font-weight: 800;
-      color: var(--green);
-      margin-bottom: 4px
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 3
     }
 
-    .flavor-step {
+    /* Panel de opciones que aparece debajo al seleccionar */
+    .flavor-options-panel {
+      grid-column: 1 / -1;
+      background: white;
+      border-radius: var(--radius);
+      border: 2px solid var(--coral);
+      padding: 20px 24px;
+      animation: fadeUp 0.25s ease both;
+      box-shadow: var(--shadow)
+    }
+
+    .flavor-options-panel-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
       margin-bottom: 16px
     }
 
-    .step-label {
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
+    .flavor-options-panel-header h4 {
+      font-size: 15px;
+      font-weight: 800;
+      color: var(--green)
+    }
+
+    .flavor-options-panel-header button {
+      background: none;
+      border: none;
       color: var(--text-muted);
-      margin-bottom: 8px
-    }
-
-    .flavor-pills {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px
-    }
-
-    .flavor-pill {
-      padding: 7px 14px;
-      border: 2px solid var(--border);
-      border-radius: 100px;
-      font-size: 13px;
-      font-weight: 600;
-      color: var(--text-mid);
+      font-size: 20px;
       cursor: pointer;
-      background: white;
-      transition: all 0.2s
+      padding: 2px 6px;
+      border-radius: 6px;
+      transition: color .2s
     }
 
-    .flavor-pill:hover {
-      border-color: var(--coral);
+    .flavor-options-panel-header button:hover {
       color: var(--coral)
-    }
-
-    .flavor-pill.selected {
-      background: var(--coral);
-      color: white;
-      border-color: var(--coral)
-    }
-
-    .product-options {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      max-height: 0;
-      overflow: hidden;
-      transition: max-height 0.35s ease, opacity 0.3s;
-      opacity: 0
-    }
-
-    .product-options.visible {
-      max-height: 400px;
-      opacity: 1
     }
 
     .option-row {
@@ -553,7 +577,12 @@
       border-radius: var(--radius-sm);
       border: 2px solid transparent;
       transition: all 0.2s;
-      cursor: pointer
+      cursor: pointer;
+      margin-bottom: 8px
+    }
+
+    .option-row:last-child {
+      margin-bottom: 0
     }
 
     .option-row:hover {
@@ -1244,6 +1273,15 @@
         flex-direction: column;
         text-align: center
       }
+
+      .flavor-gallery {
+        grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+        gap: 10px
+      }
+
+      .flavor-options-panel {
+        padding: 16px
+      }
     }
   </style>
 </head>
@@ -1328,8 +1366,8 @@
       <div class="section-title">Nuestros <strong>productos</strong></div>
       <p class="section-sub">Elegí las cantidades que necesitás y armá tu pedido</p>
     </div>
-    <div class="products-grid" id="publicProductsGrid">
-      <div style="grid-column:1/-1;text-align:center;padding:60px;color:var(--text-muted);">
+    <div class="products-container" id="publicProductsGrid">
+      <div style="text-align:center;padding:60px;color:var(--text-muted);">
         <div style="font-size:48px;">⏳</div>
         <p style="margin-top:12px;">Cargando productos...</p>
       </div>
@@ -1508,7 +1546,7 @@
       } catch (err) {
         console.error('init error:', err);
         const grid = document.getElementById('publicProductsGrid');
-        grid.innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:60px;color:var(--text-muted);">
+        grid.innerHTML = `<div style="text-align:center;padding:60px;color:var(--text-muted);">
           <div style="font-size:48px;">😕</div>
           <p style="margin-top:12px;font-weight:600;">No pudimos cargar los productos.</p>
           <p style="margin-top:8px;font-size:13px;">Revisá tu conexión e intentá recargar la página.</p>
@@ -1517,72 +1555,158 @@
     }
 
     // ══════════════════════════════════════════
-    //  RENDER PRODUCTOS
+    //  RENDER PRODUCTOS — galería agrupada
     // ══════════════════════════════════════════
     function renderPublic() {
-      const grid = document.getElementById('publicProductsGrid');
+      const container = document.getElementById('publicProductsGrid');
       const avail = products.filter(p => p.stock === 'disponible');
       if (!avail.length) {
-        grid.innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:60px;color:var(--text-muted);"><div style="font-size:48px;">🍽️</div><p style="margin-top:12px;">Pronto habrá productos disponibles</p></div>`;
+        container.innerHTML = `<div style="text-align:center;padding:60px;color:var(--text-muted);"><div style="font-size:48px;">🍽️</div><p style="margin-top:12px;">Pronto habrá productos disponibles</p></div>`;
         return;
       }
-      grid.innerHTML = avail.map((p, i) => {
-        const hasFlavors = p.flavors && p.flavors.length > 1;
-        const imgHtml = p.foto_url
-          ? `<img src="${p.foto_url}" class="prod-photo" alt="${p.name}" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">`
-          : '';
-        const emojiHtml = `<div class="prod-emoji"${p.foto_url ? ' style="display:none;"' : ''}>${p.emoji || '🥗'}</div>`;
 
-        const integralBadge = esIntegral(p)
-          ? `<div class="integral-badge">🌾 Integral</div>`
-          : '';
+      container.innerHTML = avail.map((p, gi) => {
+        // Normalizar flavors: string legacy u objeto {label, foto_url}
+        const flavors = (p.flavors || []).map(f => typeof f === 'string' ? { label: f, foto_url: null } : f);
+        const hasFlavors = flavors.length > 0;
 
         const optsHtml = (p.options || []).map((opt, oi) => `
-          <div class="option-row" onclick="${hasFlavors ? `addToCart('${p.id}',${oi},getFlav('${p.id}'))` : `addToCart('${p.id}',${oi},'')`}">
+          <div class="option-row" onclick="addToCartFromPanel('${p.id}', ${oi})">
             <span class="option-label">${opt.label}${opt.subtype ? `<span class="option-subtype">${opt.subtype}</span>` : ''}</span>
             <div style="display:flex;align-items:center;gap:10px;">
               <span class="option-price">$${Number(opt.price).toLocaleString('es-AR')}</span>
-              <button class="btn-add" onclick="event.stopPropagation();${hasFlavors ? `addToCart('${p.id}',${oi},getFlav('${p.id}'))` : `addToCart('${p.id}',${oi},'')`}">+</button>
+              <button class="btn-add" onclick="event.stopPropagation();addToCartFromPanel('${p.id}',${oi})">+</button>
             </div>
           </div>`).join('');
 
-        const flavorHtml = hasFlavors
-          ? `<div class="flavor-step"><div class="step-label">1. Elegí el sabor</div><div class="flavor-pills" id="flavors-${p.id}">${p.flavors.map(f => `<button class="flavor-pill" onclick="selectFlavor('${p.id}',this)">${f}</button>`).join('')}</div></div><div class="flavor-step"><div class="step-label" id="step2-${p.id}" style="opacity:0.4;">2. Elegí la cantidad</div><div class="product-options" id="opts-${p.id}">${optsHtml}</div></div>`
-          : `<div class="product-options visible" id="opts-${p.id}">${optsHtml}</div>`;
+        // Si el producto tiene sabores: mostrar una card por sabor
+        if (hasFlavors) {
+          const flavorCards = flavors.map((f, fi) => {
+            const isIntegral = f.label.toLowerCase().includes('integral');
+            const imgContent = f.foto_url
+              ? `<img src="${f.foto_url}" alt="${f.label}" loading="lazy" onerror="this.style.display='none'">`
+              : `<span style="font-size:52px;">${p.emoji || '🥗'}</span>`;
+            return `<div class="flavor-item" id="fi-${p.id}-${fi}" onclick="selectFlavorItem('${p.id}', ${fi})" data-pid="${p.id}" data-fi="${fi}">
+              <div class="flavor-item-img">${imgContent}</div>
+              <div class="veg-badge">🌿</div>
+              ${isIntegral ? `<div class="integral-badge">🌾</div>` : ''}
+              <div class="flavor-item-label">${f.label}</div>
+            </div>`;
+          }).join('');
 
-        return `<div class="product-card" style="animation-delay:${i * 0.07}s">
-          <div class="product-card-img">
-            ${imgHtml}${emojiHtml}
-            <img src="02 Elementos gráficos/2.Deco extra/Recurso ${20 + (i % 10)}.png" class="product-deco tr" loading="lazy" onerror="this.style.display='none'">
-            <img src="02 Elementos gráficos/2.Deco extra/Recurso ${30 + (i % 8)}.png" class="product-deco bl" loading="lazy" onerror="this.style.display='none'">
-            <div class="veg-badge">🌿 Vegetariano</div>
-            ${integralBadge}
-          </div>
-          <div class="product-body"><div class="product-name">${p.name}</div>${flavorHtml}</div>
-        </div>`;
+          return `<div class="product-group" style="animation-delay:${gi * 0.08}s">
+            <div class="product-group-title">
+              <span class="group-emoji">${p.emoji || '🥗'}</span>
+              ${p.name}
+            </div>
+            <div class="flavor-gallery" id="gallery-${p.id}">
+              ${flavorCards}
+            </div>
+          </div>`;
+
+        } else {
+          // Sin sabores: card directa con opciones visibles
+          return `<div class="product-group" style="animation-delay:${gi * 0.08}s">
+            <div class="product-group-title">
+              <span class="group-emoji">${p.emoji || '🥗'}</span>
+              ${p.name}
+            </div>
+            <div class="flavor-gallery" id="gallery-${p.id}">
+              <div class="flavor-options-panel" style="border-color:var(--border);">
+                <div class="flavor-options-panel-header">
+                  <h4>Elegí la cantidad</h4>
+                </div>
+                ${optsHtml}
+              </div>
+            </div>
+          </div>`;
+        }
       }).join('');
+
+      // Guardar opciones en dataset para acceso desde selectFlavorItem
+      window._productOptions = {};
+      avail.forEach(p => { window._productOptions[p.id] = p.options || []; });
+      window._productFlavors = {};
+      avail.forEach(p => {
+        window._productFlavors[p.id] = (p.flavors || []).map(f => typeof f === 'string' ? { label: f, foto_url: null } : f);
+      });
     }
 
-    function selectFlavor(pid, btn) {
-      document.querySelectorAll(`#flavors-${pid} .flavor-pill`).forEach(b => b.classList.remove('selected'));
-      btn.classList.add('selected');
-      document.getElementById('opts-' + pid).classList.add('visible');
-      const s2 = document.getElementById('step2-' + pid); if (s2) s2.style.opacity = '1';
-    }
-    function getFlav(pid) { const s = document.querySelector(`#flavors-${pid} .flavor-pill.selected`); return s ? s.textContent.trim() : ''; }
+    // ══════════════════════════════════════════
+    //  SELECCIONAR SABOR — muestra panel debajo
+    // ══════════════════════════════════════════
+    window.selectFlavorItem = function (pid, fi) {
+      const gallery = document.getElementById('gallery-' + pid);
+      if (!gallery) return;
+
+      // Deseleccionar todos los items de este producto
+      gallery.querySelectorAll('.flavor-item').forEach(el => el.classList.remove('selected'));
+
+      // Seleccionar el tocado
+      const card = document.getElementById(`fi-${pid}-${fi}`);
+      if (card) card.classList.add('selected');
+
+      // Quitar panel anterior si existe
+      const existing = gallery.querySelector('.flavor-options-panel');
+      if (existing) existing.remove();
+
+      // Obtener label del sabor
+      const flavor = (window._productFlavors[pid] || [])[fi];
+      const flavorLabel = flavor ? flavor.label : '';
+
+      // Construir panel de opciones
+      const opts = window._productOptions[pid] || [];
+      const optsHtml = opts.map((opt, oi) => `
+        <div class="option-row" onclick="addToCartFlavor('${pid}', ${oi}, '${flavorLabel.replace(/'/g, "\\'")}')">
+          <span class="option-label">${opt.label}${opt.subtype ? `<span class="option-subtype">${opt.subtype}</span>` : ''}</span>
+          <div style="display:flex;align-items:center;gap:10px;">
+            <span class="option-price">$${Number(opt.price).toLocaleString('es-AR')}</span>
+            <button class="btn-add" onclick="event.stopPropagation();addToCartFlavor('${pid}',${oi},'${flavorLabel.replace(/'/g, "\\'")}')">+</button>
+          </div>
+        </div>`).join('');
+
+      const panel = document.createElement('div');
+      panel.className = 'flavor-options-panel';
+      panel.innerHTML = `
+        <div class="flavor-options-panel-header">
+          <h4>📦 ${flavorLabel} — elegí la cantidad</h4>
+          <button onclick="closeFlavorPanel('${pid}')" aria-label="Cerrar">✕</button>
+        </div>
+        ${optsHtml}`;
+      gallery.appendChild(panel);
+
+      // Scroll suave al panel
+      setTimeout(() => panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 50);
+    };
+
+    window.closeFlavorPanel = function (pid) {
+      const gallery = document.getElementById('gallery-' + pid);
+      if (!gallery) return;
+      gallery.querySelectorAll('.flavor-item').forEach(el => el.classList.remove('selected'));
+      const panel = gallery.querySelector('.flavor-options-panel');
+      if (panel) panel.remove();
+    };
 
     // ══════════════════════════════════════════
     //  CARRITO
     // ══════════════════════════════════════════
-    function addToCart(pid, oi, flavor) {
+    function addToCartFlavor(pid, oi, flavor) {
       const p = products.find(x => x.id === pid);
-      if (p.flavors && p.flavors.length > 1 && !flavor) { showToast('⚠️ Primero elegí el sabor'); return; }
+      if (!p) return;
       const opt = p.options[oi];
       const key = pid + '-' + oi + '-' + (flavor || '');
       const ex = cart.find(i => i.key === key);
-      if (ex) { ex.qty++; } else { cart.push({ key, pid, oi, name: p.name, emoji: p.emoji || '🥗', label: opt.label, flavor: flavor || '', price: opt.price, qty: 1 }); }
-      updateCartUI(); showToast('✅ Agregado al pedido');
-      const cc = document.getElementById('cartCount'); cc.classList.remove('bump'); void cc.offsetWidth; cc.classList.add('bump');
+      if (ex) { ex.qty++; } else {
+        cart.push({ key, pid, oi, name: p.name, emoji: p.emoji || '🥗', label: opt.label, flavor: flavor || '', price: opt.price, qty: 1 });
+      }
+      updateCartUI();
+      showToast('✅ Agregado al pedido');
+      const cc = document.getElementById('cartCount');
+      cc.classList.remove('bump'); void cc.offsetWidth; cc.classList.add('bump');
+    }
+
+    function addToCartFromPanel(pid, oi) {
+      addToCartFlavor(pid, oi, '');
     }
     function removeFromCart(key) { cart = cart.filter(i => i.key !== key); updateCartUI(); }
 
