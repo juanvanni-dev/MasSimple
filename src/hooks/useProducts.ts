@@ -1,9 +1,12 @@
 import { useState, useEffect } from 'react';
 import { createClient } from '@supabase/supabase-js';
 
-// Usamos un valor por defecto vacío para que Vite no se rompa al minificar
-const supabaseUrl = import.meta.env.VITE_SUPABASE_URL || "";
-const supabaseKey = import.meta.env.VITE_SUPABASE_ANON_KEY || "";
+// METEMOS LAS LLAVES "A LO GUAPO" PARA MATAR EL ERROR DE LA 'Y'
+const supabaseUrl = "https://zahlthwktowwbozbhvxd.supabase.co";
+const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InphaGx0aHdrdG93d2JvemJodnhkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzI4MjU1MDcsImV4cCI6MjA4ODQwMTUwN30.o1IYkyuOJ-N0KshEvlBby6t6pg0g2HqF9ewvMXJjkrM";
+
+// Creamos el cliente afuera para que sea más estable
+const supabase = createClient(supabaseUrl, supabaseKey);
 
 export function useProducts() {
   const [products, setProducts] = useState<any[]>([]);
@@ -11,24 +14,15 @@ export function useProducts() {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    // Si las llaves no están, frenamos acá y avisamos
-    if (!supabaseUrl || !supabaseKey) {
-      console.error("⚠️ ERROR: Faltan las variables VITE_ en Vercel.");
-      setLoading(false);
-      return;
-    }
-
-    const supabase = createClient(supabaseUrl, supabaseKey);
-
     const fetchProducts = async () => {
       try {
         const { data, error: supabaseError } = await supabase
-          .from('productos') // Confirmado en tu foto que se llama así
+          .from('productos')
           .select('*');
 
         if (supabaseError) throw supabaseError;
 
-        // Mapeamos los datos de tu tabla image_6db52a.png
+        // Mapeamos los datos de tu tabla para que la web los entienda
         const mappedData = (data || []).map(item => ({
           ...item,
           price: item.options?.[0]?.price || 0,
