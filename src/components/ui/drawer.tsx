@@ -65,13 +65,13 @@ const DrawerTitle = React.forwardRef<
 ));
 DrawerTitle.displayName = DrawerPrimitive.Title.displayName;
 
-const DrawerDescription = React.forwardRef<
-  React.ElementRef<typeof DrawerPrimitive.Description>,
-  React.ComponentPropsWithoutRef<typeof DrawerPrimitive.Description>
+const Drawerdescription = React.forwardRef<
+  React.ElementRef<typeof DrawerPrimitive.description>,
+  React.ComponentPropsWithoutRef<typeof DrawerPrimitive.description>
 >(({ className, ...props }, ref) => (
-  <DrawerPrimitive.Description ref={ref} className={cn("text-sm text-muted-foreground", className)} {...props} />
+  <DrawerPrimitive.description ref={ref} className={cn("text-sm text-muted-foreground", className)} {...props} />
 ));
-DrawerDescription.displayName = DrawerPrimitive.Description.displayName;
+Drawerdescription.displayName = DrawerPrimitive.description.displayName;
 
 export {
   Drawer,
@@ -83,5 +83,5 @@ export {
   DrawerHeader,
   DrawerFooter,
   DrawerTitle,
-  DrawerDescription,
+  Drawerdescription,
 };

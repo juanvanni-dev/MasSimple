@@ -19,6 +19,7 @@ export interface Product {
   foto_url?: string | null;
   category?: string;
   created_at?: string;
+  descripcion?: string | null; // ← agregás esta línea
 }
 
 export interface CartItem {

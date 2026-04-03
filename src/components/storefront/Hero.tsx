@@ -8,7 +8,7 @@ export default function Hero() {
 <div className="absolute right-[8%] bottom-[15%] text-[60px] sm:text-[90px] opacity-45 select-none pointer-events-none" style={{ animation: 'float 7s ease-in-out infinite 2s' }}>🥕</div>
 <div className="absolute right-[35%] top-[20%] text-[40px] sm:text-[55px] opacity-30 select-none pointer-events-none" style={{ animation: 'float 9s ease-in-out infinite 0.5s' }}>🌿</div>
 
-
+    
       <div className="relative z-10 max-w-[620px]">
         <div className="inline-flex items-center gap-2 bg-green-light text-green text-[12px] sm:text-[13px] font-bold tracking-wider px-3.5 sm:px-[18px] py-1.5 sm:py-2 rounded-full mb-5 sm:mb-7 animate-fade-up">
           🌿 Comida congelada saludable

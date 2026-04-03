@@ -2,6 +2,7 @@ import { useState } from 'react';
 import Navbar from '../components/storefront/Navbar';
 import Hero from '../components/storefront/Hero';
 import ProductsSection from '../components/storefront/ProductsSection';
+import ConservacionSection from '../components/storefront/ConservacionSection';
 import AboutSection from '../components/storefront/AboutSection';
 import CTASection from '../components/storefront/CTASection';
 import Footer from '../components/storefront/Footer';
@@ -20,11 +21,12 @@ export default function Index() {
     setTimeout(() => setToast(''), 3000);
   };
 
-  return (
+ return (
     <div className="min-h-screen">
       <Navbar cartCount={totalItems} onCartOpen={() => setIsOpen(true)} />
       <Hero />
       <ProductsSection products={products} loading={loading} error={error} onAddToCart={handleAddToCart} />
+      <ConservacionSection />
       <AboutSection />
       <CTASection />
       <Footer />

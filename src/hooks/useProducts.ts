@@ -16,11 +16,11 @@ export function useProducts() {
         if (supabaseError) throw supabaseError;
 
         const mappedData = (data || []).map(item => ({
-          ...item,
-          price: item.options?.[0]?.price || 0,
-          image: item.foto_url || item.emoji || "https://via.placeholder.com/150",
-          description: item.stock || "Disponible"
-        }));
+  ...item,
+  price: item.options?.[0]?.price || 0,
+  image: item.foto_url || item.emoji || "https://via.placeholder.com/150",
+  descripcion: item.descripcion || ""
+}));
 
         setProducts(mappedData);
       } catch (err: any) {

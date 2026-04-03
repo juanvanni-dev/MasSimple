@@ -17,6 +17,7 @@ export default function ProductModal({ product, onSave, onClose }: Props) {
   const [fotoFile, setFotoFile] = useState<File | null>(null);
   const [fotoPreview, setFotoPreview] = useState<string | null>(null);
   const [saving, setSaving] = useState(false);
+  const [descripcion, setDescripcion] = useState('');
 
   useEffect(() => {
     if (product) {
@@ -26,6 +27,7 @@ export default function ProductModal({ product, onSave, onClose }: Props) {
       setFlavors((product.flavors || []).map(f => typeof f === 'string' ? f : f.label));
       setOptions(product.options?.length ? [...product.options] : [{ label: '', price: 0 }]);
       setFotoPreview(product.foto_url || null);
+      setDescripcion(product.descripcion || '');
     }
   }, [product]);
 
@@ -61,6 +63,7 @@ export default function ProductModal({ product, onSave, onClose }: Props) {
       flavors,
       options: validOpts,
       foto_url: fotoPreview && !fotoFile ? product?.foto_url : null,
+      descripcion: descripcion.trim() || null,
     }, fotoFile);
     setSaving(false);
   };
@@ -111,6 +114,13 @@ export default function ProductModal({ product, onSave, onClose }: Props) {
             )}
             <input type="file" accept="image/jpeg,image/png,image/webp" onChange={handleFotoChange} className="hidden" />
           </label>
+        </div>
+
+        {/* Descripcion */}
+        <div className="mb-4">
+          <label className="block text-[11px] font-extrabold uppercase tracking-wider text-muted-foreground mb-1.5">Descripción / Ingredientes</label>
+          <textarea value={descripcion} onChange={e => setDescripcion(e.target.value)} placeholder="Ej. Rellena de espinaca, ricota y nuez moscada..." maxLength={300} rows={3}
+            className="w-full p-3.5 px-4 border-2 border-border rounded-[var(--radius-sm)] font-sans text-[15px] bg-card outline-none focus:border-coral transition-all resize-none" />
         </div>
 
         {/* Flavors */}

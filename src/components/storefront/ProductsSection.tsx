@@ -102,6 +102,11 @@ function ProductCard({ product, onClick, isOpen }: { product: Product, onClick: 
 
       <div className="p-2.5 text-center">
         <h3 className="text-[12px] font-bold text-green mb-0.5 leading-tight">{product.name}</h3>
+        {product.descripcion && (
+  <p className="text-xs text-muted-foreground mt-1">
+    {product.descripcion}
+  </p>
+)}
         <p className="text-coral font-extrabold text-[13px]">desde ${minPrice.toLocaleString('es-AR')}</p>
       </div>
     </div>
@@ -115,12 +120,18 @@ function OptionsPanel({ product, onAdd, onClose }: { product: Product, onAdd: (o
       <button onClick={onClose} className="absolute top-1.5 right-2 text-muted-foreground hover:text-coral text-sm">✕</button>
       <p className="text-[10px] font-bold text-green/60 uppercase tracking-widest mb-3 px-1 text-center italic font-display">Elegí una opción:</p>
 
+      {/* Descripción/ingredientes */}
+      {product.descripcion && (
+        <p className="text-[12px] text-muted-foreground leading-relaxed mb-3 px-1 border-b border-border/40 pb-3">
+          {product.descripcion}
+        </p>
+      )}
+      
       <div className="grid gap-2">
         {product.options?.map((opt, i) => {
           const isOptIntegral = opt.label.toLowerCase().includes('integral');
-
           return (
-            <div
+            <div 
               key={i}
               onClick={() => onAdd(i)}
               className="flex justify-between items-center bg-white p-3 rounded-lg border border-border/50 hover:border-coral hover:bg-coral/[0.03] transition-all cursor-pointer group shadow-sm"
@@ -129,13 +140,11 @@ function OptionsPanel({ product, onAdd, onClose }: { product: Product, onAdd: (o
                 <span className="text-[13px] font-bold text-muted-foreground group-hover:text-green">
                   {opt.label}
                 </span>
-
                 <div className="flex gap-2 mt-0.5">
                   <span className="text-[8px] font-bold text-green/70 uppercase tracking-tighter">🌿 Vegetariano</span>
                   {isOptIntegral && <span className="text-[8px] font-bold text-amber-700/70 uppercase tracking-tighter">🌾 Integral</span>}
                 </div>
               </div>
-
               <div className="flex items-center gap-3 ml-4">
                 <span className="font-black text-coral text-[15px] whitespace-nowrap">${Number(opt.price).toLocaleString('es-AR')}</span>
                 <div className="bg-coral text-white w-7 h-7 rounded-full flex items-center justify-center text-xl font-bold group-hover:scale-110 transition-transform shadow-sm flex-shrink-0">+</div>
