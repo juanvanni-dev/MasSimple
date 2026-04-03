@@ -12,6 +12,7 @@ export interface ProductFlavor {
 export interface Product {
   id: string;
   name: string;
+  ingredients?: string;
   emoji?: string;
   stock: 'disponible' | 'agotado';
   flavors?: (string | ProductFlavor)[];

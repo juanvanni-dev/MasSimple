@@ -30,11 +30,11 @@ export default function AdminOrders({ orders, onUpdateStatus, onDelete }: Props)
 
   return (
     <div className="bg-card rounded-[var(--radius-sm)] shadow-ms-sm overflow-hidden">
-      <div className="p-4 px-5 border-b border-border flex gap-2.5 flex-wrap items-center">
+      <div className="p-4 px-4 sm:px-5 border-b border-border flex gap-2.5 flex-wrap items-center">
         <input
           type="text" value={search} onChange={e => setSearch(e.target.value)}
           placeholder="Buscar por cliente o producto..."
-          className="flex-1 min-w-[200px] px-4 py-2.5 border border-border rounded-full font-sans text-sm bg-beige-light outline-none focus:border-coral transition-colors"
+          className="w-full sm:flex-1 sm:min-w-[200px] px-4 py-2.5 border border-border rounded-full font-sans text-sm bg-beige-light outline-none focus:border-coral transition-colors"
         />
         <div className="flex gap-1.5 flex-wrap">
           {['todos', 'pendiente', 'confirmado', 'cancelado'].map(f => {
@@ -52,7 +52,7 @@ export default function AdminOrders({ orders, onUpdateStatus, onDelete }: Props)
             );
           })}
         </div>
-        <span className="ml-auto text-[13px] text-muted-foreground font-semibold">{filtered.length} resultado{filtered.length !== 1 ? 's' : ''}</span>
+        <span className="sm:ml-auto text-[13px] text-muted-foreground font-semibold">{filtered.length} resultado{filtered.length !== 1 ? 's' : ''}</span>
       </div>
 
       {!filtered.length ? (
@@ -63,7 +63,7 @@ export default function AdminOrders({ orders, onUpdateStatus, onDelete }: Props)
           const isExpanded = expandedItems.has(o.id);
 
           return (
-            <div key={o.id} className="p-4 px-5 border-b border-border flex flex-col md:flex-row md:items-center md:justify-between gap-3">
+            <div key={o.id} className="p-4 px-4 sm:px-5 border-b border-border flex flex-col md:flex-row md:items-center md:justify-between gap-3">
               <div className="min-w-0 flex-1">
                 <h4 className="text-[15px] font-extrabold text-green mb-1">
                   👤 {san(o.name)}{' '}
@@ -94,17 +94,17 @@ export default function AdminOrders({ orders, onUpdateStatus, onDelete }: Props)
                 )}
               </div>
 
-              <div className="flex items-center gap-2 flex-shrink-0">
+              <div className="flex items-center gap-2 flex-shrink-0 w-full md:w-auto">
                 <select
                   value={o.status}
                   onChange={e => onUpdateStatus(o.id, e.target.value)}
-                  className="px-3 py-2 border border-border rounded-full font-sans text-[13px] font-bold bg-beige-light cursor-pointer outline-none"
+                  className="px-3 py-2 border border-border rounded-full font-sans text-[13px] font-bold bg-beige-light cursor-pointer outline-none w-full md:w-auto"
                 >
                   <option value="pendiente">⏳ Pendiente</option>
                   <option value="confirmado">✅ Confirmado</option>
                   <option value="cancelado">❌ Cancelado</option>
                 </select>
-                <button onClick={() => onDelete(o.id)} className="bg-coral text-primary-foreground border-none px-3 py-2 rounded-full font-bold text-xs cursor-pointer hover:bg-coral-dark transition-all">🗑️</button>
+                <button onClick={() => onDelete(o.id)} className="bg-coral text-primary-foreground border-none px-3 py-2 rounded-full font-bold text-xs cursor-pointer hover:bg-coral-dark transition-all shrink-0">🗑️</button>
               </div>
             </div>
           );

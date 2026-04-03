@@ -58,7 +58,7 @@ export default function AdminDashboard({ products, orders }: Props) {
       </div>
 
       {/* Stats */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-7">
+      <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4 mb-7">
         <StatCard color="green" label="Productos" value={products.length} sub="en el menú" />
         <StatCard color="blue" label="Con Stock" value={products.filter(p => p.stock === 'disponible').length} sub="disponibles" />
         <StatCard color="coral" label="Sin Stock" value={products.filter(p => p.stock === 'agotado').length} sub="a reponer" />
@@ -138,9 +138,9 @@ export default function AdminDashboard({ products, orders }: Props) {
 function StatCard({ color, label, value, sub }: { color: string; label: string; value: string | number; sub: string }) {
   const borderColors: Record<string, string> = { green: 'border-l-green', coral: 'border-l-coral', blue: 'border-l-[#4A90D9]', gold: 'border-l-[#E9A945]' };
   return (
-    <div className={`bg-card rounded-[var(--radius-sm)] p-5 shadow-ms-sm border-l-4 ${borderColors[color] || ''}`}>
+    <div className={`bg-card rounded-[var(--radius-sm)] p-4 sm:p-5 shadow-ms-sm border-l-4 ${borderColors[color] || ''}`}>
       <div className="text-[11px] font-extrabold uppercase text-muted-foreground mb-1.5">{label}</div>
-      <div className="text-[30px] font-extrabold text-green leading-none">{value}</div>
+      <div className="text-[24px] sm:text-[30px] font-extrabold text-green leading-none break-words">{value}</div>
       <div className="text-xs text-muted-foreground mt-1">{sub}</div>
     </div>
   );

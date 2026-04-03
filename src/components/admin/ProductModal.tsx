@@ -9,6 +9,7 @@ interface Props {
 
 export default function ProductModal({ product, onSave, onClose }: Props) {
   const [name, setName] = useState('');
+  const [ingredients, setIngredients] = useState('');
   const [emoji, setEmoji] = useState('');
   const [stock, setStock] = useState<'disponible' | 'agotado'>('disponible');
   const [flavors, setFlavors] = useState<string[]>([]);
@@ -21,11 +22,22 @@ export default function ProductModal({ product, onSave, onClose }: Props) {
   useEffect(() => {
     if (product) {
       setName(product.name || '');
+      setIngredients(product.ingredients || '');
       setEmoji(product.emoji || '');
       setStock(product.stock || 'disponible');
       setFlavors((product.flavors || []).map(f => typeof f === 'string' ? f : f.label));
       setOptions(product.options?.length ? [...product.options] : [{ label: '', price: 0 }]);
       setFotoPreview(product.foto_url || null);
+    } else {
+      setName('');
+      setIngredients('');
+      setEmoji('');
+      setStock('disponible');
+      setFlavors([]);
+      setFlavorInput('');
+      setOptions([{ label: '', price: 0 }]);
+      setFotoFile(null);
+      setFotoPreview(null);
     }
   }, [product]);
 
@@ -56,6 +68,7 @@ export default function ProductModal({ product, onSave, onClose }: Props) {
     await onSave({
       id: product?.id || Date.now().toString(),
       name: name.trim(),
+      ingredients: ingredients.trim(),
       emoji: emoji.trim() || '🥗',
       stock,
       flavors,
@@ -77,8 +90,20 @@ export default function ProductModal({ product, onSave, onClose }: Props) {
             className="w-full p-3.5 px-4 border-2 border-border rounded-[var(--radius-sm)] font-sans text-[15px] bg-card outline-none focus:border-coral transition-all" />
         </div>
 
+        <div className="mb-4">
+          <label className="block text-[11px] font-extrabold uppercase tracking-wider text-muted-foreground mb-1.5">Ingredientes</label>
+          <textarea
+            value={ingredients}
+            onChange={e => setIngredients(e.target.value)}
+            placeholder="Ej. Harina integral, zanahoria, espinaca, queso..."
+            maxLength={400}
+            rows={3}
+            className="w-full p-3.5 px-4 border-2 border-border rounded-[var(--radius-sm)] font-sans text-[15px] bg-card outline-none focus:border-coral transition-all resize-y min-h-[88px]"
+          />
+        </div>
+
         {/* Emoji + Stock */}
-        <div className="grid grid-cols-[1fr_130px] gap-3.5 mb-4">
+        <div className="grid grid-cols-1 sm:grid-cols-[1fr_130px] gap-3.5 mb-4">
           <div>
             <label className="block text-[11px] font-extrabold uppercase tracking-wider text-muted-foreground mb-1.5">Emoji (icono)</label>
             <input type="text" value={emoji} onChange={e => setEmoji(e.target.value)} placeholder="🍔" maxLength={4}
@@ -140,7 +165,7 @@ export default function ProductModal({ product, onSave, onClose }: Props) {
             <button onClick={() => setOptions([...options, { label: '', price: 0 }])} className="bg-transparent border border-border text-muted-foreground px-3 py-1 rounded-full font-bold text-xs cursor-pointer hover:border-coral hover:text-coral transition-all font-sans">+ Opción</button>
           </div>
           {options.map((opt, i) => (
-            <div key={i} className="grid grid-cols-[1fr_110px_34px] gap-2 mt-2.5 items-center">
+            <div key={i} className="grid grid-cols-1 sm:grid-cols-[1fr_110px_34px] gap-2 mt-2.5 items-center">
               <input type="text" placeholder="Ej: x6 unidades" value={opt.label} maxLength={60}
                 onChange={e => { const n = [...options]; n[i] = { ...n[i], label: e.target.value }; setOptions(n); }}
                 className="p-2.5 px-3 border border-border rounded-[var(--radius-sm)] font-sans text-sm outline-none focus:border-coral transition-all w-full" />
