@@ -14,7 +14,7 @@ export default function AdminSidebar({ active, onNavigate, onLogout, isOpen, pen
   ];
 
   return (
-    <aside className={`w-[230px] bg-green flex flex-col flex-shrink-0 fixed top-0 left-0 bottom-0 z-[100] transition-transform md:translate-x-0 ${isOpen ? 'translate-x-0' : '-translate-x-full'}`}>
+    <aside className={`w-[82vw] max-w-[230px] bg-green flex flex-col flex-shrink-0 fixed top-0 left-0 bottom-0 z-[100] transition-transform md:w-[230px] md:translate-x-0 ${isOpen ? 'translate-x-0' : '-translate-x-full'}`}>
       <div className="px-5 py-6 border-b border-primary-foreground/10">
         <div className="font-display text-xl italic font-bold text-primary-foreground">Más <em className="not-italic text-coral">Simple</em></div>
         <p className="text-[11px] text-primary-foreground/45 mt-0.5">Panel de gestión</p>

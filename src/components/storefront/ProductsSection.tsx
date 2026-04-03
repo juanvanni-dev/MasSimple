@@ -65,6 +65,8 @@ export default function ProductsSection({ products, loading, error, onAddToCart 
             </div>
           </div>
         ))}
+
+        <ConservationTips />
       </div>
     </section>
   );
@@ -102,8 +104,25 @@ function ProductCard({ product, onClick, isOpen }: { product: Product, onClick: 
 
       <div className="p-2.5 text-center">
         <h3 className="text-[12px] font-bold text-green mb-0.5 leading-tight">{product.name}</h3>
+        {product.ingredients && (
+          <p className="text-[10px] text-muted-foreground leading-snug mb-1">
+            <span className="font-semibold text-green/90">Ingredientes:</span> {product.ingredients}
+          </p>
+        )}
         <p className="text-coral font-extrabold text-[13px]">desde ${minPrice.toLocaleString('es-AR')}</p>
       </div>
+    </div>
+  );
+}
+
+function ConservationTips() {
+  return (
+    <div className="bg-card border border-border rounded-xl p-5 sm:p-6 shadow-sm">
+      <h3 className="font-display text-2xl italic text-green mb-2">🧊 Cómo conservar los productos</h3>
+      <p className="text-sm text-muted-foreground leading-relaxed">
+        Mantené los productos congelados a -18°C. Para mejor textura y sabor, descongelalos en heladera entre 8 y 12 horas antes
+        de cocinarlos. Una vez descongelados, consumilos dentro de las 24 horas y no volver a congelar.
+      </p>
     </div>
   );
 }

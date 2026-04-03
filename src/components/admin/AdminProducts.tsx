@@ -25,12 +25,48 @@ export default function AdminProducts({ products, onNew, onEdit, onDelete }: Pro
           <p className="font-semibold text-sm">No hay productos cargados.</p>
         </div>
       ) : (
-        <div className="overflow-x-auto">
-          <table className="w-full border-collapse min-w-[560px]">
+        <>
+          <div className="md:hidden p-3 space-y-3">
+            {products.map(p => {
+              const sabores = p.flavors?.length ? p.flavors.map(f => typeof f === 'string' ? f : f.label).join(', ') : 'Sin sabores';
+              return (
+                <div key={p.id} className="border border-border rounded-[var(--radius-sm)] p-3 bg-card">
+                  <div className="flex items-start gap-3">
+                    {p.foto_url ? (
+                      <img src={p.foto_url} alt={p.name} className="w-14 h-14 rounded-lg object-cover flex-shrink-0" />
+                    ) : (
+                      <div className="w-14 h-14 rounded-lg bg-beige flex items-center justify-center text-[24px] flex-shrink-0">{p.emoji || '🥗'}</div>
+                    )}
+                    <div className="min-w-0 flex-1">
+                      <h4 className="font-bold text-green leading-tight">{san(p.name)}</h4>
+                      {p.ingredients && <p className="text-xs text-muted-foreground mt-1"><span className="font-semibold">Ingredientes:</span> {san(p.ingredients)}</p>}
+                      <p className="text-xs text-muted-foreground mt-1"><span className="font-semibold">Sabores:</span> {san(sabores)}</p>
+                      <div className="text-xs mt-1">
+                        {(p.options || []).map((o, i) => (
+                          <div key={i}>{san(o.label)}: <strong>${Number(o.price).toLocaleString('es-AR')}</strong></div>
+                        ))}
+                      </div>
+                      <span className={`inline-block mt-2 px-2.5 py-1 rounded-full text-[11px] font-extrabold uppercase ${p.stock === 'disponible' ? 'bg-[#E2F5E8] text-[#1A6B35]' : 'bg-[#FDEAEA] text-[#C0392B]'}`}>
+                        {p.stock === 'disponible' ? '✅ Disponible' : '❌ Agotado'}
+                      </span>
+                    </div>
+                  </div>
+                  <div className="flex gap-2 mt-3">
+                    <button onClick={() => onEdit(p)} className="flex-1 bg-transparent border border-border text-muted-foreground px-3 py-2 rounded-full font-bold text-xs cursor-pointer hover:border-coral hover:text-coral transition-all">✏️ Editar</button>
+                    <button onClick={() => onDelete(p.id)} className="bg-coral text-primary-foreground border-none px-3 py-2 rounded-full font-bold text-xs cursor-pointer hover:bg-coral-dark transition-all">🗑️</button>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+
+          <div className="overflow-x-auto hidden md:block">
+            <table className="w-full border-collapse min-w-[740px]">
             <thead>
               <tr>
                 <th className="text-[11px] uppercase text-muted-foreground font-extrabold bg-beige-light p-3 px-4 text-left"></th>
                 <th className="text-[11px] uppercase text-muted-foreground font-extrabold bg-beige-light p-3 px-4 text-left">Nombre</th>
+                <th className="text-[11px] uppercase text-muted-foreground font-extrabold bg-beige-light p-3 px-4 text-left">Ingredientes</th>
                 <th className="text-[11px] uppercase text-muted-foreground font-extrabold bg-beige-light p-3 px-4 text-left">Sabores</th>
                 <th className="text-[11px] uppercase text-muted-foreground font-extrabold bg-beige-light p-3 px-4 text-left">Precios</th>
                 <th className="text-[11px] uppercase text-muted-foreground font-extrabold bg-beige-light p-3 px-4 text-left">Stock</th>
@@ -50,6 +86,7 @@ export default function AdminProducts({ products, onNew, onEdit, onDelete }: Pro
                       )}
                     </td>
                     <td className="p-3.5 px-4 border-b border-border font-bold">{san(p.name)}</td>
+                    <td className="p-3.5 px-4 border-b border-border text-[13px] text-muted-foreground">{san(p.ingredients || 'Sin detalle')}</td>
                     <td className="p-3.5 px-4 border-b border-border text-[13px] text-muted-foreground">{san(sabores)}</td>
                     <td className="p-3.5 px-4 border-b border-border text-[13px]">
                       {(p.options || []).map((o, i) => (
@@ -69,8 +106,9 @@ export default function AdminProducts({ products, onNew, onEdit, onDelete }: Pro
                 );
               })}
             </tbody>
-          </table>
-        </div>
+            </table>
+          </div>
+        </>
       )}
     </div>
   );
